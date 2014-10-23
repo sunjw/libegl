@@ -141,18 +141,22 @@ bool windowsurfacehelper_destroyFrameBuffer(struct EAGL_egl_context* context, _E
     GLenum error = GL_NO_ERROR;
     GLuint step = 1;
     
-    // Binds framebuffer object
-    GL_GET_ERROR(api->glBindFrameBuffers(api->GL_FRAMEBUFFER_, framebuffer), error, step);
-    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
+    if(framebuffer > 0) {
+        // Binds framebuffer object
+        GL_GET_ERROR(api->glBindFrameBuffers(api->GL_FRAMEBUFFER_, framebuffer), error, step);
+        GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup);
     
-    // Unbinds colorbuffer object from framebuffer
-    GL_GET_ERROR(api->glBindRenderBuffers(api->GL_RENDERBUFFER_, 0), error, step);
-    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
+        // Unbinds colorbuffer object from framebuffer
+        GL_GET_ERROR(api->glBindRenderBuffers(api->GL_RENDERBUFFER_, 0), error, step);
+        GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup);
+    }
     
     // Delete color buffer
-    GL_GET_ERROR(api->glDeleteRenderBuffers(1, &colorbuffer), error, step);
-    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
-        
+    if(colorbuffer > 0) {
+        GL_GET_ERROR(api->glDeleteRenderBuffers(1, &colorbuffer), error, step);
+        GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup);
+    }
+    
     // Delete depth buffer
     if (depthbuffer > 0) {
         // Unbinds depthbuffer object from framebuffer
@@ -163,13 +167,16 @@ bool windowsurfacehelper_destroyFrameBuffer(struct EAGL_egl_context* context, _E
         GL_GET_ERROR(api->glDeleteRenderBuffers(1, &depthbuffer), error, step);
         GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
     }
-    // Binds framebuffer object
-    GL_GET_ERROR(api->glBindFrameBuffers(api->GL_FRAMEBUFFER_, 0), error, step);
-    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
     
-    // Delete framebuffer
-    GL_GET_ERROR(api->glDeleteFrameBuffers(1, &framebuffer), error, step);
-    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
+    if(framebuffer > 0) {
+        // Binds framebuffer object
+        GL_GET_ERROR(api->glBindFrameBuffers(api->GL_FRAMEBUFFER_, 0), error, step);
+        GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup);
+    
+        // Delete framebuffer
+        GL_GET_ERROR(api->glDeleteFrameBuffers(1, &framebuffer), error, step);
+        GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup);
+    }
     
     _OpenGLBuffers zero = {0};
     surface.buffers = zero;

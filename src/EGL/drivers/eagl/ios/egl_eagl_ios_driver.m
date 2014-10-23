@@ -749,14 +749,12 @@ EGLBoolean EAGLIOS_DestroyWindow(struct EAGL_egl_display *EAGL_dpy, struct EAGL_
     if (!context) {
         _eglLog(_EGL_WARNING, "EAGLIOS_DestroyWindow: Leak when destroying an EGL WindowSurface");
     }
-    else
-    {
-        _OpenGLESAPI api = EAGL_surf->Surface.api;
-        bool unsetFBSuccess = windowsurfacehelper_destroyFrameBuffer(EAGL_ctx, EAGL_surf->Surface, &api);
-        if (!unsetFBSuccess) {
-            // FIXME: What error should be reported ?
-            return EGL_FALSE;
-        }
+    
+    _OpenGLESAPI api = EAGL_surf->Surface.api;
+    bool unsetFBSuccess = windowsurfacehelper_destroyFrameBuffer(EAGL_ctx, EAGL_surf->Surface, &api);
+    if (!unsetFBSuccess) {
+        // FIXME: What error should be reported ?
+        return EGL_FALSE;
     }
     
     /** Restore current context set with MakeCurrent */

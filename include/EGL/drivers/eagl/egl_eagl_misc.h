@@ -65,7 +65,9 @@ static void ExecSetContextLostStatus (_EGLContext* context) {
     struct EAGL_egl_context* ctx = EAGL_egl_context(context);
     _eaglSetContextLost(ctx, EGL_TRUE);
     struct EAGL_egl_surface* surf = EAGL_egl_surface(context->DrawSurface);
-    [surf->Surface cancelWaitUntilMinIntervalFrameUpdated];
+    if(surf->Surface) {
+        [surf->Surface cancelWaitUntilMinIntervalFrameUpdated];
+    }
 }
 
 
