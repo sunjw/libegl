@@ -129,11 +129,11 @@
 			isa = PBXGroup;
 			children = (
 				C790C5AB1804284F00C614D4 /* QuartzCore.framework */,
-				C7B20977171700C6004C53C6 /* libegl.a */,
 				C776FD6417178E3400B4CEB8 /* OpenGLES.framework */,
 				C712FF0F1711189800881C89 /* UIKit.framework */,
 				C712FF111711189800881C89 /* Foundation.framework */,
 				C712FF131711189800881C89 /* CoreGraphics.framework */,
+				C7B20977171700C6004C53C6 /* libegl.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

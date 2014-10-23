@@ -134,6 +134,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		528DCF4519F8C90C00DEF770 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 528DCF4119F8C90C00DEF770 /* Sample1.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C712FF0B1711189800881C89;
+			remoteInfo = Sample1;
+		};
 		C70CEDC315E7BF5100017A65 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C70CEDA315E7BF5100017A65 /* Project object */;
@@ -187,6 +194,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		528DCF4119F8C90C00DEF770 /* Sample1.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sample1.xcodeproj; path = ../../../samples/samples.ios/Sample1/proj/proj.ios/Sample1.xcodeproj; sourceTree = "<group>"; };
 		C709B8B61706817700FBCA04 /* eglapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglapi.h; sourceTree = "<group>"; };
 		C709B8BE1706818800FBCA04 /* eglapi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = eglapi.m; sourceTree = "<group>"; };
 		C70CEDAC15E7BF5100017A65 /* libegl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libegl.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -315,6 +323,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		528DCF4219F8C90C00DEF770 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				528DCF4619F8C90C00DEF770 /* Sample1.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		528DCF4719F8C91F00DEF770 /* Sample */ = {
+			isa = PBXGroup;
+			children = (
+				528DCF4119F8C90C00DEF770 /* Sample1.xcodeproj */,
+			);
+			name = Sample;
+			sourceTree = "<group>";
+		};
 		C70713CE1821D5620020806A /* ios */ = {
 			isa = PBXGroup;
 			children = (
@@ -453,6 +477,7 @@
 				C70CEDC615E7BF5100017A65 /* eglapiTests */,
 				C70CEDAE15E7BF5100017A65 /* Frameworks */,
 				C70CEDAD15E7BF5100017A65 /* Products */,
+				528DCF4719F8C91F00DEF770 /* Sample */,
 			);
 			sourceTree = "<group>";
 		};
@@ -717,7 +742,7 @@
 			name = eglTests;
 			productName = "settingsapi-core-libTests";
 			productReference = C70CEDBD15E7BF5100017A65 /* eglTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -738,6 +763,12 @@
 			mainGroup = C70CEDA115E7BF5100017A65;
 			productRefGroup = C70CEDAD15E7BF5100017A65 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 528DCF4219F8C90C00DEF770 /* Products */;
+					ProjectRef = 528DCF4119F8C90C00DEF770 /* Sample1.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				C70CEDAB15E7BF5100017A65 /* egl */,
@@ -747,6 +778,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		528DCF4619F8C90C00DEF770 /* Sample1.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = Sample1.app;
+			remoteRef = 528DCF4519F8C90C00DEF770 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		C70CEDBA15E7BF5100017A65 /* Resources */ = {

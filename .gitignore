@@ -11,3 +11,6 @@ proj/proj.ios/eglapi-core-lib/*.xcodeproj/*
 samples/samples.ios/Sample1/proj/proj.ios/*.xcodeproj/*
 !samples/samples.ios/Sample1/proj/proj.ios/*.xcodeproj/project.pbxproj
 !samples/samples.ios/Sample1/proj/proj.ios/*.xcworkspace/contents.xcworkspacedata
+
+proj/proj.ios/eglapi-core-lib/DerivedData/*
+samples/samples.ios/Sample1/proj/proj.ios/DerivedData/*
