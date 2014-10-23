@@ -156,7 +156,7 @@ static EGLBoolean convert_eagl_ios_config (struct EAGL_egl_driver *EAGL_drv,
     _eglSetConfigKey(conf, EGL_MAX_PBUFFER_WIDTH      ,0); // TODO: How to get the right value ?
     _eglSetConfigKey(conf, EGL_MAX_PBUFFER_HEIGHT     ,0); // TODO: How to get the right value ?
     _eglSetConfigKey(conf, EGL_MAX_PBUFFER_PIXELS     ,0); // TODO: How to get the right value ?
-    _eglSetConfigKey(conf, EGL_MAX_SWAP_INTERVAL      ,NSIntegerMax);
+    _eglSetConfigKey(conf, EGL_MAX_SWAP_INTERVAL      ,INT_MAX);
     _eglSetConfigKey(conf, EGL_MIN_SWAP_INTERVAL      ,0);
     _eglSetConfigKey(conf, EGL_NATIVE_RENDERABLE      ,EGL_TRUE); // Let's say yes
     _eglSetConfigKey(conf, EGL_NATIVE_VISUAL_ID       ,0); // No visual
