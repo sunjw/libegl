@@ -13,6 +13,8 @@
 
 @interface OpenGLView : UIView
 
+- (void) startLoop;
+
 @end
 
 #endif

@@ -31,6 +31,8 @@
                                                         appWidth, appHeight)];
 
     [self.view addSubview:_openGLView];
+    
+    [_openGLView startLoop];
 }
 
 - (void) dealloc

@@ -81,9 +81,6 @@ static GLubyte g_indices[] = {
         
         [self setupGL];
         
-        CADisplayLink *displayLink = [CADisplayLink displayLinkWithTarget:self
-                                                                 selector:@selector(drawFrame)];
-        [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     }
     
     return self;
@@ -175,6 +172,14 @@ static GLubyte g_indices[] = {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glFrustumf(-ratio, ratio, -1, 1, 1, 10);
+}
+
+- (void) startLoop {
+    CADisplayLink *displayLink = [CADisplayLink
+                                  displayLinkWithTarget:self
+                                  selector:@selector(drawFrame)];
+    [displayLink addToRunLoop:[NSRunLoop currentRunLoop]
+                      forMode:NSDefaultRunLoopMode];
 }
 
 - (void) drawFrame {
