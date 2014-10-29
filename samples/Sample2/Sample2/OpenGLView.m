@@ -12,6 +12,8 @@
 #import <OpenGLES/ES1/gl.h>
 #import <OpenGLES/ES1/glext.h>
 
+#include "Comm.h"
+
 static GLint g_vertices[][3] = {
     { -0x10000, -0x10000, -0x10000 },
     {  0x10000, -0x10000, -0x10000 },
@@ -42,6 +44,8 @@ static GLubyte g_indices[] = {
     4, 7, 6,    4, 6, 5,
     3, 0, 1,    3, 1, 2
 };
+
+extern int g_appState;
 
 @implementation OpenGLView {
     EAGLContext *_eaglContext;
@@ -183,6 +187,9 @@ static GLubyte g_indices[] = {
 }
 
 - (void) drawFrame {
+    if(g_appState != APP_RUNNING)
+        return;
+    
     //NSLog(@"drawFrame");
     
     glClearColor(0, 0, 0, 0);

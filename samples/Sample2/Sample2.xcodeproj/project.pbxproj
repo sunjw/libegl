@@ -43,6 +43,7 @@
 		528CBF261A00A73F005A2064 /* Sample2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Sample2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		528CBF2B1A00A73F005A2064 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		528CBF2C1A00A73F005A2064 /* Sample2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sample2Tests.m; sourceTree = "<group>"; };
+		52CA76F41A00F5AC00E5BE52 /* Comm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Comm.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +85,7 @@
 		528CBF0B1A00A73E005A2064 /* Sample2 */ = {
 			isa = PBXGroup;
 			children = (
+				52CA76F41A00F5AC00E5BE52 /* Comm.h */,
 				528CBF101A00A73E005A2064 /* AppDelegate.h */,
 				528CBF111A00A73E005A2064 /* AppDelegate.m */,
 				5261CFB41A00CAFC003D3FC2 /* OpenGLView.h */,
