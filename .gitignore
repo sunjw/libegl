@@ -14,3 +14,4 @@ samples/samples.ios/Sample1/proj/proj.ios/*.xcodeproj/*
 
 proj/proj.ios/eglapi-core-lib/DerivedData/*
 samples/samples.ios/Sample1/proj/proj.ios/DerivedData/*
+samples/Sample2/Sample2.xcodeproj/xcuserdata/*
