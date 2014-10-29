@@ -46,6 +46,9 @@ static GLubyte g_indices[] = {
 @implementation OpenGLView {
     EAGLContext *_eaglContext;
     
+    GLint _glWidth;
+    GLint _glHeight;
+    
     GLuint _framebuffer;
     GLuint _colorRenderbuffer;
     GLuint _depthRenderbuffer;
@@ -53,36 +56,40 @@ static GLubyte g_indices[] = {
     GLfloat _angle;
 }
 
-- (id)initWithFrame:(CGRect)frame
++ (Class) layerClass {
+    return [CAEAGLLayer class];
+}
+
+- (id) initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         CAEAGLLayer *eaglLayer = (CAEAGLLayer*) self.layer;
         eaglLayer.opaque = YES;
         eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        [NSNumber numberWithBool:FALSE], kEAGLDrawablePropertyRetainedBacking,
-                                        kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat,
+                                        [NSNumber numberWithBool:FALSE],
+                                        kEAGLDrawablePropertyRetainedBacking,
+                                        kEAGLColorFormatRGBA8,
+                                        kEAGLDrawablePropertyColorFormat,
                                         nil];
         
-        _eaglContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
-        
-        if (!_eaglContext ||
-            ![EAGLContext setCurrentContext:_eaglContext])
-        {
-            NSLog(@"failed to setup EAGLContext");
-            self = nil;
-            return nil;
-        }
+        _framebuffer = 0;
+        _colorRenderbuffer = 0;
+        _depthRenderbuffer = 0;
         
         _angle = 0.0f;
         
         [self setupGL];
+        
+        CADisplayLink *displayLink = [CADisplayLink displayLinkWithTarget:self
+                                                                 selector:@selector(drawFrame)];
+        [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     }
     
     return self;
 }
 
-- (void)dealloc {
+- (void) dealloc {
     if (_framebuffer) {
         glDeleteFramebuffersOES(1, &_framebuffer);
         _framebuffer = 0;
@@ -105,39 +112,47 @@ static GLubyte g_indices[] = {
     _eaglContext = nil;
 }
 
-+ (Class)layerClass {
-    return [CAEAGLLayer class];
-}
-
-- (void)setupGL {
+- (void) setupGL {
+    _eaglContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
+    
+    if (!_eaglContext ||
+        ![EAGLContext setCurrentContext:_eaglContext])
+    {
+        NSLog(@"failed to setup EAGLContext");
+        return;
+    }
+    
     CGFloat viewWidth = self.bounds.size.width;
     CGFloat viewHeight = self.bounds.size.height;
     
-    GLint width = (GLint) viewWidth;
-    GLint height = (GLint) viewHeight;
+    _glWidth = (GLint) viewWidth;
+    _glHeight = (GLint) viewHeight;
     
     glGenFramebuffersOES(1, &_framebuffer);
     glBindFramebufferOES(GL_FRAMEBUFFER_OES, _framebuffer);
     
     glGenRenderbuffersOES(1, &_colorRenderbuffer);
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, _colorRenderbuffer);
-    glRenderbufferStorageOES(GL_RENDERBUFFER_OES, GL_RGBA8_OES, width, height);
-    glFramebufferRenderbufferOES(GL_RENDERBUFFER_OES,
-                                 GL_COLOR_ATTACHMENT0_OES,
-                                 GL_RENDERBUFFER_OES,
-                                 _colorRenderbuffer);
+    //glRenderbufferStorageOES(GL_RENDERBUFFER_OES, GL_RGBA, _glWidth, _glHeight);
     
     [_eaglContext renderbufferStorage:GL_RENDERBUFFER_OES
                          fromDrawable:(CAEAGLLayer*)self.layer];
     
+    glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES,
+                                 GL_COLOR_ATTACHMENT0_OES,
+                                 GL_RENDERBUFFER_OES,
+                                 _colorRenderbuffer);
+    
+    
     glGenRenderbuffersOES(1, &_depthRenderbuffer);
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, _depthRenderbuffer);
     glRenderbufferStorageOES(GL_RENDERBUFFER_OES, GL_DEPTH_COMPONENT16_OES,
-                             width, height);
+                             _glWidth, _glHeight);
     glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES,
                                  GL_DEPTH_ATTACHMENT_OES,
                                  GL_RENDERBUFFER_OES,
                                  _depthRenderbuffer);
+    
     
     GLenum status = glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) ;
     if(status != GL_FRAMEBUFFER_COMPLETE_OES) {
@@ -154,16 +169,45 @@ static GLubyte g_indices[] = {
     glShadeModel(GL_SMOOTH);
     glEnable(GL_DEPTH_TEST);
     
-    glViewport(0, 0, width, height);
+    glViewport(0, 0, _glWidth, _glHeight);
     
-    ratio = (GLfloat) width / height;
+    ratio = (GLfloat) _glWidth / _glHeight;
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glFrustumf(-ratio, ratio, -1, 1, 1, 10);
 }
 
-- (void)layoutSubviews {
-    NSLog(@"- (void)layoutSubviews");
+- (void) drawFrame {
+    //NSLog(@"drawFrame");
+    
+    glClearColor(0, 0, 0, 0);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glTranslatef(0, 0, -3.0f);
+    glRotatef(_angle, 0, 1, 0);
+    glRotatef(_angle*0.25f, 1, 0, 0);
+    
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_COLOR_ARRAY);
+    
+    glFrontFace(GL_CW);
+    glVertexPointer(3, GL_FIXED, 0, g_vertices);
+    glColorPointer(4, GL_FIXED, 0, g_colors);
+    glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, g_indices);
+    
+    glBindRenderbufferOES(GL_RENDERBUFFER_OES, _colorRenderbuffer);
+    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER_OES];
+    
+    /*size_t imgSize = 4 * _glWidth * 300 * sizeof(char);
+    char *img = (char *)malloc(imgSize);
+    
+    glReadPixels(0, 0, _glWidth, _glHeight, GL_RGBA, GL_UNSIGNED_BYTE, img);
+    
+    free(img);*/
+    
+    _angle += 1.2f;
 }
 
 @end
