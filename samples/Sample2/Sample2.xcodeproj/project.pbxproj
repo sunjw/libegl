@@ -9,9 +9,7 @@
 /* Begin PBXBuildFile section */
 		528CBF0F1A00A73E005A2064 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 528CBF0E1A00A73E005A2064 /* main.m */; };
 		528CBF121A00A73E005A2064 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 528CBF111A00A73E005A2064 /* AppDelegate.m */; };
-		528CBF141A00A73E005A2064 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 528CBF131A00A73E005A2064 /* Shader.fsh */; };
-		528CBF161A00A73E005A2064 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 528CBF151A00A73E005A2064 /* Shader.vsh */; };
-		528CBF191A00A73F005A2064 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 528CBF181A00A73F005A2064 /* GameViewController.m */; };
+		528CBF191A00A73F005A2064 /* OpenGLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 528CBF181A00A73F005A2064 /* OpenGLViewController.m */; };
 		528CBF1C1A00A73F005A2064 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 528CBF1A1A00A73F005A2064 /* Main.storyboard */; };
 		528CBF1E1A00A73F005A2064 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 528CBF1D1A00A73F005A2064 /* Images.xcassets */; };
 		528CBF211A00A73F005A2064 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 528CBF1F1A00A73F005A2064 /* LaunchScreen.xib */; };
@@ -34,10 +32,8 @@
 		528CBF0E1A00A73E005A2064 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		528CBF101A00A73E005A2064 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		528CBF111A00A73E005A2064 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		528CBF131A00A73E005A2064 /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
-		528CBF151A00A73E005A2064 /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
-		528CBF171A00A73E005A2064 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
-		528CBF181A00A73F005A2064 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		528CBF171A00A73E005A2064 /* OpenGLViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenGLViewController.h; sourceTree = "<group>"; };
+		528CBF181A00A73F005A2064 /* OpenGLViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenGLViewController.m; sourceTree = "<group>"; };
 		528CBF1B1A00A73F005A2064 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		528CBF1D1A00A73F005A2064 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		528CBF201A00A73F005A2064 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -87,10 +83,8 @@
 			children = (
 				528CBF101A00A73E005A2064 /* AppDelegate.h */,
 				528CBF111A00A73E005A2064 /* AppDelegate.m */,
-				528CBF131A00A73E005A2064 /* Shader.fsh */,
-				528CBF151A00A73E005A2064 /* Shader.vsh */,
-				528CBF171A00A73E005A2064 /* GameViewController.h */,
-				528CBF181A00A73F005A2064 /* GameViewController.m */,
+				528CBF171A00A73E005A2064 /* OpenGLViewController.h */,
+				528CBF181A00A73F005A2064 /* OpenGLViewController.m */,
 				528CBF1A1A00A73F005A2064 /* Main.storyboard */,
 				528CBF1D1A00A73F005A2064 /* Images.xcassets */,
 				528CBF1F1A00A73F005A2064 /* LaunchScreen.xib */,
@@ -208,8 +202,6 @@
 				528CBF211A00A73F005A2064 /* LaunchScreen.xib in Resources */,
 				528CBF1C1A00A73F005A2064 /* Main.storyboard in Resources */,
 				528CBF1E1A00A73F005A2064 /* Images.xcassets in Resources */,
-				528CBF161A00A73E005A2064 /* Shader.vsh in Resources */,
-				528CBF141A00A73E005A2064 /* Shader.fsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,7 +220,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				528CBF121A00A73E005A2064 /* AppDelegate.m in Sources */,
-				528CBF191A00A73F005A2064 /* GameViewController.m in Sources */,
+				528CBF191A00A73F005A2064 /* OpenGLViewController.m in Sources */,
 				528CBF0F1A00A73E005A2064 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -422,6 +414,7 @@
 				528CBF321A00A73F005A2064 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		528CBF331A00A73F005A2064 /* Build configuration list for PBXNativeTarget "Sample2Tests" */ = {
 			isa = XCConfigurationList;
@@ -430,6 +423,7 @@
 				528CBF351A00A73F005A2064 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

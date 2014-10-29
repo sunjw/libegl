@@ -1,12 +1,12 @@
 //
-//  GameViewController.m
+//  OpenGLViewController.m
 //  Sample2
 //
 //  Created by TM Test on 10/29/14.
 //  Copyright (c) 2014 TrendMicro. All rights reserved.
 //
 
-#import "GameViewController.h"
+#import "OpenGLViewController.h"
 
 #import <OpenGLES/ES1/gl.h>
 
@@ -41,18 +41,17 @@ static GLubyte g_indices[] = {
     3, 0, 1,    3, 1, 2
 };
 
-@interface GameViewController () {
+@interface OpenGLViewController () {
     GLfloat _angle;
 }
 @property (strong, nonatomic) EAGLContext *context;
-@property (strong, nonatomic) GLKBaseEffect *effect;
 
 - (void)setupGL;
 - (void)tearDownGL;
 
 @end
 
-@implementation GameViewController
+@implementation OpenGLViewController
 
 - (void)viewDidLoad
 {

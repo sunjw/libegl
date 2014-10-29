@@ -1,5 +1,5 @@
 //
-//  GameViewController.h
+//  OpenGLViewController.h
 //  Sample2
 //
 //  Created by TM Test on 10/29/14.
@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
 
-@interface GameViewController : GLKViewController
+@interface OpenGLViewController : GLKViewController
 
 @end
