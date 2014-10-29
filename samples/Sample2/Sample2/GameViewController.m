@@ -68,6 +68,7 @@ static GLubyte g_indices[] = {
     view.context = self.context;
     
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
+    //view.drawableMultisample = GLKViewDrawableMultisample4X;
     
     _angle = 0.0f;
     
