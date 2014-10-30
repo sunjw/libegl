@@ -14,7 +14,7 @@
 
 #include "Comm.h"
 
-static GLint g_vertices[][3] = {
+static GLint s_vertices[][3] = {
     { -0x10000, -0x10000, -0x10000 },
     {  0x10000, -0x10000, -0x10000 },
     {  0x10000,  0x10000, -0x10000 },
@@ -25,7 +25,7 @@ static GLint g_vertices[][3] = {
     { -0x10000,  0x10000,  0x10000 }
 };
 
-static GLint g_colors[][4] = {
+static GLint s_colors[][4] = {
     { 0x00000, 0x00000, 0x00000, 0x10000 },
     { 0x10000, 0x00000, 0x00000, 0x10000 },
     { 0x10000, 0x10000, 0x00000, 0x10000 },
@@ -36,7 +36,7 @@ static GLint g_colors[][4] = {
     { 0x00000, 0x10000, 0x10000, 0x10000 }
 };
 
-static GLubyte g_indices[] = {
+static GLubyte s_indices[] = {
     0, 4, 5,    0, 5, 1,
     1, 5, 6,    1, 6, 2,
     2, 6, 7,    2, 7, 3,
@@ -182,12 +182,6 @@ extern int g_appState;
     _eaglContext = nil;
 }
 
-// Post OpenGL rendering image on screen though CAEAGLLayer
-- (void) postOnScreen {
-    glBindRenderbufferOES(GL_RENDERBUFFER_OES, _colorRenderbuffer);
-    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER_OES];
-}
-
 - (void) loopCallback {
     if(g_appState != APP_RUNNING)
         return;
@@ -195,6 +189,16 @@ extern int g_appState;
     [self drawFrame];
     
     [self postOnScreen];
+}
+
+// Post OpenGL rendering image on screen though CAEAGLLayer
+- (void) postOnScreen {
+    glBindRenderbufferOES(GL_RENDERBUFFER_OES, _colorRenderbuffer);
+    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER_OES];
+}
+
+- (void) readGLPixel:(char *)img {
+    glReadPixels(0, 0, _glWidth, _glHeight, GL_RGBA, GL_UNSIGNED_BYTE, img);
 }
 
 - (void) prepareDrawing {
@@ -231,16 +235,9 @@ extern int g_appState;
     glEnableClientState(GL_COLOR_ARRAY);
     
     glFrontFace(GL_CW);
-    glVertexPointer(3, GL_FIXED, 0, g_vertices);
-    glColorPointer(4, GL_FIXED, 0, g_colors);
-    glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, g_indices);
-    
-    /*size_t imgSize = 4 * _glWidth * 300 * sizeof(char);
-    char *img = (char *)malloc(imgSize);
-    
-    glReadPixels(0, 0, _glWidth, _glHeight, GL_RGBA, GL_UNSIGNED_BYTE, img);
-    
-    free(img);*/
+    glVertexPointer(3, GL_FIXED, 0, s_vertices);
+    glColorPointer(4, GL_FIXED, 0, s_colors);
+    glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, s_indices);
     
     _angle += 1.2f;
 }
