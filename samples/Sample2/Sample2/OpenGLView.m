@@ -85,32 +85,23 @@ extern int g_appState;
         
         [self setupGL];
         
+        [self prepareDrawing];
+        
     }
     
     return self;
 }
 
 - (void) dealloc {
-    if (_framebuffer) {
-        glDeleteFramebuffersOES(1, &_framebuffer);
-        _framebuffer = 0;
-    }
-    
-    if (_colorRenderbuffer) {
-        glDeleteRenderbuffersOES(1, &_colorRenderbuffer);
-        _colorRenderbuffer = 0;
-    }
-    
-    if (_depthRenderbuffer) {
-        glDeleteRenderbuffersOES(1, &_depthRenderbuffer);
-        _depthRenderbuffer = 0;
-    }
-    
-    if ([EAGLContext currentContext] == _eaglContext) {
-        [EAGLContext setCurrentContext:nil];
-    }
-    
-    _eaglContext = nil;
+    [self cleanupGL];
+}
+
+- (void) startLoop {
+    CADisplayLink *displayLink = [CADisplayLink
+                                  displayLinkWithTarget:self
+                                  selector:@selector(loopCallback)];
+    [displayLink addToRunLoop:[NSRunLoop currentRunLoop]
+                      forMode:NSDefaultRunLoopMode];
 }
 
 - (void) setupGL {
@@ -134,15 +125,20 @@ extern int g_appState;
     
     glGenRenderbuffersOES(1, &_colorRenderbuffer);
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, _colorRenderbuffer);
-    //glRenderbufferStorageOES(GL_RENDERBUFFER_OES, GL_RGBA, _glWidth, _glHeight);
     
+    // This for offscreen rendering
+    //glRenderbufferStorageOES(GL_RENDERBUFFER_OES, GL_RGBA, _glWidth, _glHeight);
+    // This for offscreen rendering -- END
+    
+    // This for CAEAGLLayer rendering
     [_eaglContext renderbufferStorage:GL_RENDERBUFFER_OES
                          fromDrawable:(CAEAGLLayer*)self.layer];
-    
+
     glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES,
                                  GL_COLOR_ATTACHMENT0_OES,
                                  GL_RENDERBUFFER_OES,
                                  _colorRenderbuffer);
+    // This for CAEAGLLayer rendering -- END
     
     
     glGenRenderbuffersOES(1, &_depthRenderbuffer);
@@ -158,9 +154,50 @@ extern int g_appState;
     GLenum status = glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) ;
     if(status != GL_FRAMEBUFFER_COMPLETE_OES) {
         NSLog(@"failed to make complete framebuffer object %x", status);
-        return;
+        //return;
     }
     
+}
+
+- (void) cleanupGL {
+    if (_framebuffer) {
+        glDeleteFramebuffersOES(1, &_framebuffer);
+        _framebuffer = 0;
+    }
+    
+    if (_colorRenderbuffer) {
+        glDeleteRenderbuffersOES(1, &_colorRenderbuffer);
+        _colorRenderbuffer = 0;
+    }
+    
+    if (_depthRenderbuffer) {
+        glDeleteRenderbuffersOES(1, &_depthRenderbuffer);
+        _depthRenderbuffer = 0;
+    }
+    
+    if ([EAGLContext currentContext] == _eaglContext) {
+        [EAGLContext setCurrentContext:nil];
+    }
+    
+    _eaglContext = nil;
+}
+
+// Post OpenGL rendering image on screen though CAEAGLLayer
+- (void) postOnScreen {
+    glBindRenderbufferOES(GL_RENDERBUFFER_OES, _colorRenderbuffer);
+    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER_OES];
+}
+
+- (void) loopCallback {
+    if(g_appState != APP_RUNNING)
+        return;
+    
+    [self drawFrame];
+    
+    [self postOnScreen];
+}
+
+- (void) prepareDrawing {
     GLfloat ratio;
     
     glDisable(GL_DITHER);
@@ -178,18 +215,7 @@ extern int g_appState;
     glFrustumf(-ratio, ratio, -1, 1, 1, 10);
 }
 
-- (void) startLoop {
-    CADisplayLink *displayLink = [CADisplayLink
-                                  displayLinkWithTarget:self
-                                  selector:@selector(drawFrame)];
-    [displayLink addToRunLoop:[NSRunLoop currentRunLoop]
-                      forMode:NSDefaultRunLoopMode];
-}
-
 - (void) drawFrame {
-    if(g_appState != APP_RUNNING)
-        return;
-    
     //NSLog(@"drawFrame");
     
     glClearColor(0, 0, 0, 0);
@@ -208,9 +234,6 @@ extern int g_appState;
     glVertexPointer(3, GL_FIXED, 0, g_vertices);
     glColorPointer(4, GL_FIXED, 0, g_colors);
     glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, g_indices);
-    
-    glBindRenderbufferOES(GL_RENDERBUFFER_OES, _colorRenderbuffer);
-    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER_OES];
     
     /*size_t imgSize = 4 * _glWidth * 300 * sizeof(char);
     char *img = (char *)malloc(imgSize);
