@@ -45,6 +45,9 @@ static GLubyte s_indices[] = {
     3, 0, 1,    3, 1, 2
 };
 
+static int s_renderTarget = FRAMEBUFFER_OBJ;
+//static int s_renderTarget = CAEAGL_LAYER;
+
 extern int g_appState;
 
 @implementation OpenGLView {
@@ -68,6 +71,14 @@ extern int g_appState;
 {
     self = [super initWithFrame:frame];
     if (self) {
+        if (s_renderTarget == FRAMEBUFFER_OBJ) {
+            NSLog(@"Render target is FRAMEBUFFER_OBJ");
+            
+        } else if (s_renderTarget == CAEAGL_LAYER) {
+            NSLog(@"Render target is CAEAGL_LAYER");
+            
+        }
+        
         CAEAGLLayer *eaglLayer = (CAEAGLLayer*) self.layer;
         eaglLayer.opaque = YES;
         eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -126,19 +137,21 @@ extern int g_appState;
     glGenRenderbuffersOES(1, &_colorRenderbuffer);
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, _colorRenderbuffer);
     
-    // This for offscreen rendering
-    //glRenderbufferStorageOES(GL_RENDERBUFFER_OES, GL_RGBA, _glWidth, _glHeight);
-    // This for offscreen rendering -- END
+    if (s_renderTarget == FRAMEBUFFER_OBJ) {
+        // This for offscreen rendering
+        glRenderbufferStorageOES(GL_RENDERBUFFER_OES, GL_RGBA8_OES, _glWidth, _glHeight);
+        
+    } else if (s_renderTarget == CAEAGL_LAYER) {
+        // This for CAEAGLLayer rendering
+        [_eaglContext renderbufferStorage:GL_RENDERBUFFER_OES
+                             fromDrawable:(CAEAGLLayer*)self.layer];
+        
+    }
     
-    // This for CAEAGLLayer rendering
-    [_eaglContext renderbufferStorage:GL_RENDERBUFFER_OES
-                         fromDrawable:(CAEAGLLayer*)self.layer];
-
     glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES,
                                  GL_COLOR_ATTACHMENT0_OES,
                                  GL_RENDERBUFFER_OES,
                                  _colorRenderbuffer);
-    // This for CAEAGLLayer rendering -- END
     
     
     glGenRenderbuffersOES(1, &_depthRenderbuffer);
@@ -193,8 +206,17 @@ extern int g_appState;
 
 // Post OpenGL rendering image on screen though CAEAGLLayer
 - (void) postOnScreen {
-    glBindRenderbufferOES(GL_RENDERBUFFER_OES, _colorRenderbuffer);
-    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER_OES];
+    if (s_renderTarget == FRAMEBUFFER_OBJ) {
+        size_t imgSize = CalcRGBAImgSize(_glWidth, _glHeight);
+        char *img = (char *)malloc(imgSize);
+        
+        [self readGLPixel:img];
+        
+        free(img);
+    } else if (s_renderTarget == CAEAGL_LAYER) {
+        glBindRenderbufferOES(GL_RENDERBUFFER_OES, _colorRenderbuffer);
+        [_eaglContext presentRenderbuffer:GL_RENDERBUFFER_OES];
+    }
 }
 
 - (void) readGLPixel:(char *)img {

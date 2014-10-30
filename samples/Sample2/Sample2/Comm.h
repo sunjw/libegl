@@ -15,10 +15,23 @@
 
 enum APP_STATE {
     APP_RUNNING = 0,
-    APP_BACKGROUND = 1,
+    APP_BACKGROUND,
 };
 
-inline size_t CalcRGBAImgSize(int width, int height)
+enum OPENGL_RENDER_TARGET {
+    FRAMEBUFFER_OBJ = 0,
+    CAEAGL_LAYER,
+};
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+static inline size_t CalcRGBAImgSize(int width, int height)
 { return 4 * width * height * sizeof(char); }
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // _COMM_H_
