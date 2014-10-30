@@ -45,8 +45,8 @@ static GLubyte s_indices[] = {
     3, 0, 1,    3, 1, 2
 };
 
-static int s_renderTarget = FRAMEBUFFER_OBJ;
-//static int s_renderTarget = CAEAGL_LAYER;
+//static int s_renderTarget = FRAMEBUFFER_OBJ;
+static int s_renderTarget = CAEAGL_LAYER;
 
 extern int g_appState;
 
@@ -206,6 +206,8 @@ extern int g_appState;
 
 // Post OpenGL rendering image on screen though CAEAGLLayer
 - (void) postOnScreen {
+    glBindRenderbufferOES(GL_RENDERBUFFER_OES, _colorRenderbuffer);
+    
     if (s_renderTarget == FRAMEBUFFER_OBJ) {
         size_t imgSize = CalcRGBAImgSize(_glWidth, _glHeight);
         char *img = (char *)malloc(imgSize);
@@ -214,8 +216,8 @@ extern int g_appState;
         
         free(img);
     } else if (s_renderTarget == CAEAGL_LAYER) {
-        glBindRenderbufferOES(GL_RENDERBUFFER_OES, _colorRenderbuffer);
         [_eaglContext presentRenderbuffer:GL_RENDERBUFFER_OES];
+        
     }
 }
 
