@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41EFD1741A013F54007B587E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41EFD1731A013F54007B587E /* Foundation.framework */; };
+		41EFD1761A013F5B007B587E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41EFD1751A013F5B007B587E /* QuartzCore.framework */; };
+		41EFD1781A013F60007B587E /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41EFD1771A013F60007B587E /* OpenGLES.framework */; };
+		41EFD17A1A013F64007B587E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41EFD1791A013F64007B587E /* UIKit.framework */; };
 		5261CFB61A00CB15003D3FC2 /* OpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5261CFB51A00CB15003D3FC2 /* OpenGLView.m */; };
 		528CBF0F1A00A73E005A2064 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 528CBF0E1A00A73E005A2064 /* main.m */; };
 		528CBF121A00A73E005A2064 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 528CBF111A00A73E005A2064 /* AppDelegate.m */; };
@@ -28,6 +32,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		41EFD1731A013F54007B587E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		41EFD1751A013F5B007B587E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		41EFD1771A013F60007B587E /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		41EFD1791A013F64007B587E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5261CFB41A00CAFC003D3FC2 /* OpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenGLView.h; sourceTree = "<group>"; };
 		5261CFB51A00CB15003D3FC2 /* OpenGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenGLView.m; sourceTree = "<group>"; };
 		528CBF091A00A73E005A2064 /* Sample2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,6 +59,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41EFD1741A013F54007B587E /* Foundation.framework in Frameworks */,
+				41EFD1761A013F5B007B587E /* QuartzCore.framework in Frameworks */,
+				41EFD1781A013F60007B587E /* OpenGLES.framework in Frameworks */,
+				41EFD17A1A013F64007B587E /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,11 +76,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		41EFD1721A013F36007B587E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				41EFD1731A013F54007B587E /* Foundation.framework */,
+				41EFD1751A013F5B007B587E /* QuartzCore.framework */,
+				41EFD1791A013F64007B587E /* UIKit.framework */,
+				41EFD1771A013F60007B587E /* OpenGLES.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		528CBF001A00A73E005A2064 = {
 			isa = PBXGroup;
 			children = (
 				528CBF0B1A00A73E005A2064 /* Sample2 */,
 				528CBF291A00A73F005A2064 /* Sample2Tests */,
+				41EFD1721A013F36007B587E /* Frameworks */,
 				528CBF0A1A00A73E005A2064 /* Products */,
 			);
 			sourceTree = "<group>";
