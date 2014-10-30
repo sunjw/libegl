@@ -45,12 +45,12 @@ static GLubyte s_indices[] = {
     3, 0, 1,    3, 1, 2
 };
 
-//static int s_renderTarget = FRAMEBUFFER_OBJ;
-static int s_renderTarget = CAEAGL_LAYER;
-
 extern int g_appState;
 
 @implementation OpenGLView {
+    CAEAGLLayer *_mainLayer;
+    CAEAGLLayer *_newLayer;
+    
     EAGLContext *_eaglContext;
     
     GLint _glWidth;
@@ -71,22 +71,27 @@ extern int g_appState;
 {
     self = [super initWithFrame:frame];
     if (self) {
-        if (s_renderTarget == FRAMEBUFFER_OBJ) {
-            NSLog(@"Render target is FRAMEBUFFER_OBJ");
-            
-        } else if (s_renderTarget == CAEAGL_LAYER) {
-            NSLog(@"Render target is CAEAGL_LAYER");
-            
-        }
+        CGFloat viewWidth = self.bounds.size.width;
+        CGFloat viewHeight = self.bounds.size.height;
         
-        CAEAGLLayer *eaglLayer = (CAEAGLLayer *)self.layer;
-        eaglLayer.opaque = YES;
-        eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        [NSNumber numberWithBool:NO],
+        _mainLayer = (CAEAGLLayer *)self.layer;
+        _mainLayer.opaque = NO;
+        
+        _glWidth = (GLint) viewWidth;
+        _glHeight = (GLint) viewHeight;
+        
+        _newLayer = [[CAEAGLLayer alloc] init];
+        _newLayer.opaque = YES;
+        _newLayer.frame = CGRectMake(0.0, 0.0, _glWidth, _glHeight);
+        _newLayer.contentsScale = 1.0;
+        _newLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
+                                        [NSNumber numberWithBool:YES],
                                         kEAGLDrawablePropertyRetainedBacking,
                                         kEAGLColorFormatRGBA8,
                                         kEAGLDrawablePropertyColorFormat,
                                         nil];
+        
+        [_mainLayer addSublayer:_newLayer];
         
         _framebuffer = 0;
         _colorRenderbuffer = 0;
@@ -125,28 +130,16 @@ extern int g_appState;
         return;
     }
     
-    CGFloat viewWidth = self.bounds.size.width;
-    CGFloat viewHeight = self.bounds.size.height;
-    
-    _glWidth = (GLint) viewWidth;
-    _glHeight = (GLint) viewHeight;
-    
     glGenFramebuffersOES(1, &_framebuffer);
     glBindFramebufferOES(GL_FRAMEBUFFER_OES, _framebuffer);
     
     glGenRenderbuffersOES(1, &_colorRenderbuffer);
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, _colorRenderbuffer);
     
-    if (s_renderTarget == FRAMEBUFFER_OBJ) {
-        // This for offscreen rendering
-        glRenderbufferStorageOES(GL_RENDERBUFFER_OES, GL_RGBA8_OES, _glWidth, _glHeight);
-        
-    } else if (s_renderTarget == CAEAGL_LAYER) {
-        // This for CAEAGLLayer rendering
-        [_eaglContext renderbufferStorage:GL_RENDERBUFFER_OES
-                             fromDrawable:(CAEAGLLayer*)self.layer];
-        
-    }
+    // This for CAEAGLLayer rendering
+    [_eaglContext renderbufferStorage:GL_RENDERBUFFER_OES
+                         fromDrawable:_newLayer];
+    
     
     glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES,
                                  GL_COLOR_ATTACHMENT0_OES,
@@ -208,17 +201,8 @@ extern int g_appState;
 - (void) postOnScreen {
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, _colorRenderbuffer);
     
-    if (s_renderTarget == FRAMEBUFFER_OBJ) {
-        size_t imgSize = CalcRGBAImgSize(_glWidth, _glHeight);
-        char *img = (char *)malloc(imgSize);
-        
-        [self readGLPixel:img];
-        
-        free(img);
-    } else if (s_renderTarget == CAEAGL_LAYER) {
-        [_eaglContext presentRenderbuffer:GL_RENDERBUFFER_OES];
-        
-    }
+    [_eaglContext presentRenderbuffer:GL_RENDERBUFFER_OES];
+    
 }
 
 - (void) readGLPixel:(char *)img {
