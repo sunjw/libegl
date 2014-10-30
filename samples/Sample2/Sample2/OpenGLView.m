@@ -79,10 +79,10 @@ extern int g_appState;
             
         }
         
-        CAEAGLLayer *eaglLayer = (CAEAGLLayer*) self.layer;
+        CAEAGLLayer *eaglLayer = (CAEAGLLayer *)self.layer;
         eaglLayer.opaque = YES;
         eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        [NSNumber numberWithBool:FALSE],
+                                        [NSNumber numberWithBool:NO],
                                         kEAGLDrawablePropertyRetainedBacking,
                                         kEAGLColorFormatRGBA8,
                                         kEAGLDrawablePropertyColorFormat,
@@ -245,6 +245,8 @@ extern int g_appState;
 
 - (void) drawFrame {
     //NSLog(@"drawFrame");
+    
+    glBindFramebufferOES(GL_FRAMEBUFFER_OES, _framebuffer);
     
     glClearColor(0, 0, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
