@@ -19,8 +19,7 @@
 
 @implementation OpenGLViewController
 
-- (void) viewDidLoad
-{
+- (void) viewDidLoad {
     [super viewDidLoad];
     
     CGFloat appWidth = [UIScreen mainScreen].applicationFrame.size.width;
@@ -35,12 +34,11 @@
     [_openGLView startLoop];
 }
 
-- (void) dealloc
-{
+- (void) dealloc {
+
 }
 
-- (void) didReceiveMemoryWarning
-{
+- (void) didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 
     if ([self isViewLoaded] && ([[self view] window] == nil)) {
