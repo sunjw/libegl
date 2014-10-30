@@ -75,17 +75,17 @@ extern int g_appState;
         CGFloat viewHeight = self.bounds.size.height;
         
         _mainLayer = (CAEAGLLayer *)self.layer;
-        _mainLayer.opaque = NO;
+        _mainLayer.opaque = YES;
         
         _glWidth = (GLint) viewWidth;
         _glHeight = (GLint) viewHeight;
         
         _newLayer = [[CAEAGLLayer alloc] init];
         _newLayer.opaque = YES;
-        _newLayer.frame = CGRectMake(0.0, 0.0, _glWidth, _glHeight);
+        _newLayer.frame = CGRectMake(50.0, 20.0, _glWidth, _glHeight);
         _newLayer.contentsScale = 1.0;
         _newLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        [NSNumber numberWithBool:YES],
+                                        [NSNumber numberWithBool:NO],
                                         kEAGLDrawablePropertyRetainedBacking,
                                         kEAGLColorFormatRGBA8,
                                         kEAGLDrawablePropertyColorFormat,
@@ -205,10 +205,6 @@ extern int g_appState;
     
 }
 
-- (void) readGLPixel:(char *)img {
-    glReadPixels(0, 0, _glWidth, _glHeight, GL_RGBA, GL_UNSIGNED_BYTE, img);
-}
-
 - (void) prepareDrawing {
     GLfloat ratio;
     
@@ -232,7 +228,7 @@ extern int g_appState;
     
     glBindFramebufferOES(GL_FRAMEBUFFER_OES, _framebuffer);
     
-    glClearColor(0, 0, 0, 0);
+    glClearColor(0, 1, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     glMatrixMode(GL_MODELVIEW);
