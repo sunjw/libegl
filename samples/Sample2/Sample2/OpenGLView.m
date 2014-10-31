@@ -124,8 +124,7 @@ extern int g_appState;
     _eaglContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
     
     if (!_eaglContext ||
-        ![EAGLContext setCurrentContext:_eaglContext])
-    {
+        ![EAGLContext setCurrentContext:_eaglContext]) {
         NSLog(@"failed to setup EAGLContext");
         return;
     }

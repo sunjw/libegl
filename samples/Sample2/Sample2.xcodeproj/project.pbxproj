@@ -37,14 +37,14 @@
 		41EFD1771A013F60007B587E /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		41EFD1791A013F64007B587E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5261CFB41A00CAFC003D3FC2 /* OpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenGLView.h; sourceTree = "<group>"; };
-		5261CFB51A00CB15003D3FC2 /* OpenGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenGLView.m; sourceTree = "<group>"; };
+		5261CFB51A00CB15003D3FC2 /* OpenGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenGLView.m; path = Sample2/OpenGLView.m; sourceTree = "<group>"; };
 		528CBF091A00A73E005A2064 /* Sample2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		528CBF0D1A00A73E005A2064 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		528CBF0E1A00A73E005A2064 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		528CBF101A00A73E005A2064 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		528CBF111A00A73E005A2064 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		528CBF111A00A73E005A2064 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Sample2/AppDelegate.m; sourceTree = "<group>"; };
 		528CBF171A00A73E005A2064 /* OpenGLViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenGLViewController.h; sourceTree = "<group>"; };
-		528CBF181A00A73F005A2064 /* OpenGLViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenGLViewController.m; sourceTree = "<group>"; };
+		528CBF181A00A73F005A2064 /* OpenGLViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = OpenGLViewController.m; path = Sample2/OpenGLViewController.m; sourceTree = "<group>"; };
 		528CBF1B1A00A73F005A2064 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		528CBF1D1A00A73F005A2064 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		528CBF201A00A73F005A2064 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -87,10 +87,34 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		526FB93F1A03332D00704C16 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				52CA76F41A00F5AC00E5BE52 /* Comm.h */,
+				528CBF101A00A73E005A2064 /* AppDelegate.h */,
+				5261CFB41A00CAFC003D3FC2 /* OpenGLView.h */,
+				528CBF171A00A73E005A2064 /* OpenGLViewController.h */,
+			);
+			name = include;
+			path = Sample2;
+			sourceTree = "<group>";
+		};
+		526FB9401A03334C00704C16 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				528CBF111A00A73E005A2064 /* AppDelegate.m */,
+				5261CFB51A00CB15003D3FC2 /* OpenGLView.m */,
+				528CBF181A00A73F005A2064 /* OpenGLViewController.m */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
 		528CBF001A00A73E005A2064 = {
 			isa = PBXGroup;
 			children = (
 				528CBF0B1A00A73E005A2064 /* Sample2 */,
+				526FB93F1A03332D00704C16 /* include */,
+				526FB9401A03334C00704C16 /* src */,
 				528CBF291A00A73F005A2064 /* Sample2Tests */,
 				41EFD1721A013F36007B587E /* Frameworks */,
 				528CBF0A1A00A73E005A2064 /* Products */,
@@ -109,13 +133,6 @@
 		528CBF0B1A00A73E005A2064 /* Sample2 */ = {
 			isa = PBXGroup;
 			children = (
-				52CA76F41A00F5AC00E5BE52 /* Comm.h */,
-				528CBF101A00A73E005A2064 /* AppDelegate.h */,
-				528CBF111A00A73E005A2064 /* AppDelegate.m */,
-				5261CFB41A00CAFC003D3FC2 /* OpenGLView.h */,
-				5261CFB51A00CB15003D3FC2 /* OpenGLView.m */,
-				528CBF171A00A73E005A2064 /* OpenGLViewController.h */,
-				528CBF181A00A73F005A2064 /* OpenGLViewController.m */,
 				528CBF1A1A00A73F005A2064 /* Main.storyboard */,
 				528CBF1D1A00A73F005A2064 /* Images.xcassets */,
 				528CBF1F1A00A73F005A2064 /* LaunchScreen.xib */,
