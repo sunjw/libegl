@@ -2,7 +2,7 @@
 //  Comm.h
 //  Sample2
 //
-//  Created by TM Test on 10/29/14.
+//  Created by Wayne Sun on 10/29/14.
 //  Copyright (c) 2014 TrendMicro. All rights reserved.
 //
 
@@ -14,8 +14,11 @@
 #include <unistd.h>
 
 enum APP_STATE {
-    APP_RUNNING = 0,
+    APP_ACTIVE = 0,
+    APP_NOACTIVE,
+    APP_FOREGROUND,
     APP_BACKGROUND,
+    APP_TERMINATE,
 };
 
 enum OPENGL_RENDER_TARGET {

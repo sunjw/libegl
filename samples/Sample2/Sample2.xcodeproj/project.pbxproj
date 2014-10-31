@@ -11,10 +11,13 @@
 		41EFD1761A013F5B007B587E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41EFD1751A013F5B007B587E /* QuartzCore.framework */; };
 		41EFD1781A013F60007B587E /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41EFD1771A013F60007B587E /* OpenGLES.framework */; };
 		41EFD17A1A013F64007B587E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41EFD1791A013F64007B587E /* UIKit.framework */; };
-		5261CFB61A00CB15003D3FC2 /* OpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5261CFB51A00CB15003D3FC2 /* OpenGLView.m */; };
+		5261CFB61A00CB15003D3FC2 /* OpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5261CFB51A00CB15003D3FC2 /* OpenGLView.mm */; };
+		526FB9431A03344300704C16 /* Thread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 526FB9421A03344300704C16 /* Thread.cpp */; };
+		526FB9491A03646F00704C16 /* RenderController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 526FB9481A03646F00704C16 /* RenderController.cpp */; };
+		526FB94C1A0369E900704C16 /* RenderThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 526FB94B1A0369E900704C16 /* RenderThread.cpp */; };
 		528CBF0F1A00A73E005A2064 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 528CBF0E1A00A73E005A2064 /* main.m */; };
-		528CBF121A00A73E005A2064 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 528CBF111A00A73E005A2064 /* AppDelegate.m */; };
-		528CBF191A00A73F005A2064 /* OpenGLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 528CBF181A00A73F005A2064 /* OpenGLViewController.m */; };
+		528CBF121A00A73E005A2064 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 528CBF111A00A73E005A2064 /* AppDelegate.mm */; };
+		528CBF191A00A73F005A2064 /* OpenGLViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 528CBF181A00A73F005A2064 /* OpenGLViewController.mm */; };
 		528CBF1C1A00A73F005A2064 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 528CBF1A1A00A73F005A2064 /* Main.storyboard */; };
 		528CBF1E1A00A73F005A2064 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 528CBF1D1A00A73F005A2064 /* Images.xcassets */; };
 		528CBF211A00A73F005A2064 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 528CBF1F1A00A73F005A2064 /* LaunchScreen.xib */; };
@@ -37,14 +40,21 @@
 		41EFD1771A013F60007B587E /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		41EFD1791A013F64007B587E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5261CFB41A00CAFC003D3FC2 /* OpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenGLView.h; sourceTree = "<group>"; };
-		5261CFB51A00CB15003D3FC2 /* OpenGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenGLView.m; sourceTree = "<group>"; };
+		5261CFB51A00CB15003D3FC2 /* OpenGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OpenGLView.mm; path = Sample2/OpenGLView.mm; sourceTree = "<group>"; };
+		526FB9411A0333B400704C16 /* Thread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Thread.h; sourceTree = "<group>"; };
+		526FB9421A03344300704C16 /* Thread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Thread.cpp; path = Sample2/Thread.cpp; sourceTree = "<group>"; };
+		526FB9461A03552600704C16 /* Lock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Lock.h; sourceTree = "<group>"; };
+		526FB9471A03643B00704C16 /* RenderController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenderController.h; sourceTree = "<group>"; };
+		526FB9481A03646F00704C16 /* RenderController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RenderController.cpp; path = Sample2/RenderController.cpp; sourceTree = "<group>"; };
+		526FB94A1A03661D00704C16 /* RenderThread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenderThread.h; sourceTree = "<group>"; };
+		526FB94B1A0369E900704C16 /* RenderThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RenderThread.cpp; path = Sample2/RenderThread.cpp; sourceTree = "<group>"; };
 		528CBF091A00A73E005A2064 /* Sample2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		528CBF0D1A00A73E005A2064 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		528CBF0E1A00A73E005A2064 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		528CBF101A00A73E005A2064 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		528CBF111A00A73E005A2064 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		528CBF111A00A73E005A2064 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = Sample2/AppDelegate.mm; sourceTree = "<group>"; };
 		528CBF171A00A73E005A2064 /* OpenGLViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenGLViewController.h; sourceTree = "<group>"; };
-		528CBF181A00A73F005A2064 /* OpenGLViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenGLViewController.m; sourceTree = "<group>"; };
+		528CBF181A00A73F005A2064 /* OpenGLViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = OpenGLViewController.mm; path = Sample2/OpenGLViewController.mm; sourceTree = "<group>"; };
 		528CBF1B1A00A73F005A2064 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		528CBF1D1A00A73F005A2064 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		528CBF201A00A73F005A2064 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -87,10 +97,41 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		526FB93F1A03332D00704C16 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				52CA76F41A00F5AC00E5BE52 /* Comm.h */,
+				526FB9461A03552600704C16 /* Lock.h */,
+				526FB9411A0333B400704C16 /* Thread.h */,
+				526FB94A1A03661D00704C16 /* RenderThread.h */,
+				526FB9471A03643B00704C16 /* RenderController.h */,
+				528CBF101A00A73E005A2064 /* AppDelegate.h */,
+				5261CFB41A00CAFC003D3FC2 /* OpenGLView.h */,
+				528CBF171A00A73E005A2064 /* OpenGLViewController.h */,
+			);
+			name = include;
+			path = Sample2;
+			sourceTree = "<group>";
+		};
+		526FB9401A03334C00704C16 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				526FB9421A03344300704C16 /* Thread.cpp */,
+				526FB94B1A0369E900704C16 /* RenderThread.cpp */,
+				526FB9481A03646F00704C16 /* RenderController.cpp */,
+				528CBF111A00A73E005A2064 /* AppDelegate.mm */,
+				5261CFB51A00CB15003D3FC2 /* OpenGLView.mm */,
+				528CBF181A00A73F005A2064 /* OpenGLViewController.mm */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
 		528CBF001A00A73E005A2064 = {
 			isa = PBXGroup;
 			children = (
 				528CBF0B1A00A73E005A2064 /* Sample2 */,
+				526FB93F1A03332D00704C16 /* include */,
+				526FB9401A03334C00704C16 /* src */,
 				528CBF291A00A73F005A2064 /* Sample2Tests */,
 				41EFD1721A013F36007B587E /* Frameworks */,
 				528CBF0A1A00A73E005A2064 /* Products */,
@@ -109,13 +150,6 @@
 		528CBF0B1A00A73E005A2064 /* Sample2 */ = {
 			isa = PBXGroup;
 			children = (
-				52CA76F41A00F5AC00E5BE52 /* Comm.h */,
-				528CBF101A00A73E005A2064 /* AppDelegate.h */,
-				528CBF111A00A73E005A2064 /* AppDelegate.m */,
-				5261CFB41A00CAFC003D3FC2 /* OpenGLView.h */,
-				5261CFB51A00CB15003D3FC2 /* OpenGLView.m */,
-				528CBF171A00A73E005A2064 /* OpenGLViewController.h */,
-				528CBF181A00A73F005A2064 /* OpenGLViewController.m */,
 				528CBF1A1A00A73F005A2064 /* Main.storyboard */,
 				528CBF1D1A00A73F005A2064 /* Images.xcassets */,
 				528CBF1F1A00A73F005A2064 /* LaunchScreen.xib */,
@@ -250,10 +284,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				528CBF121A00A73E005A2064 /* AppDelegate.m in Sources */,
-				528CBF191A00A73F005A2064 /* OpenGLViewController.m in Sources */,
+				528CBF121A00A73E005A2064 /* AppDelegate.mm in Sources */,
+				528CBF191A00A73F005A2064 /* OpenGLViewController.mm in Sources */,
 				528CBF0F1A00A73E005A2064 /* main.m in Sources */,
-				5261CFB61A00CB15003D3FC2 /* OpenGLView.m in Sources */,
+				526FB9431A03344300704C16 /* Thread.cpp in Sources */,
+				5261CFB61A00CB15003D3FC2 /* OpenGLView.mm in Sources */,
+				526FB9491A03646F00704C16 /* RenderController.cpp in Sources */,
+				526FB94C1A0369E900704C16 /* RenderThread.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
