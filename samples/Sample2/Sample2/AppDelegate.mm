@@ -32,7 +32,7 @@ RenderController g_renderController;
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     NSLog(@"applicationWillResignActive");
 
-    g_renderController.threadWait();
+    g_renderController.threadsWait();
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -40,28 +40,28 @@ RenderController g_renderController;
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     NSLog(@"applicationDidEnterBackground");
 
-    g_renderController.threadStop();
+    g_renderController.threadsStop();
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     NSLog(@"applicationWillEnterForeground");
 
-    g_renderController.threadStart();
+    g_renderController.threadsStart();
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     NSLog(@"applicationDidBecomeActive");
 
-    g_renderController.threadActive();
+    g_renderController.threadsActive();
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     NSLog(@"applicationWillTerminate");
 
-    g_renderController.threadStop();
+    g_renderController.threadsStop();
 }
 
 @end

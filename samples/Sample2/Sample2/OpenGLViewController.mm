@@ -34,7 +34,7 @@ extern RenderController g_renderController;
 
     [self.view addSubview:openGLView];
     
-    g_renderController.threadStart();
+    g_renderController.threadsStart();
 }
 
 - (void) dealloc {

@@ -9,19 +9,26 @@
 #ifndef _OPENGL_View_H_
 #define _OPENGL_View_H_
 
+#include <pthread.h>
+
 #import <UIKit/UIKit.h>
+
+class RenderThread;
+struct RenderContext;
 
 @interface OpenGLView : UIView
 
-- (void) setupGL;
+- (RenderContext *)getRenderContext:(RenderThread *)pThread;
 
-- (void) cleanupGL;
+- (void) setupGL:(RenderContext *)renderCtx;
 
-- (void) postOnScreen;
+- (void) cleanupGL:(RenderContext *)renderCtx;
 
-- (void) prepareDrawing;
+- (void) postOnScreen:(RenderContext *)renderCtx;
 
-- (void) drawFrame;
+- (void) prepareDrawing:(RenderContext *)renderCtx;
+
+- (void) drawFrame:(RenderContext *)renderCtx;
 
 @end
 

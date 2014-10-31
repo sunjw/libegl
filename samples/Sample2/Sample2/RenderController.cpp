@@ -22,7 +22,7 @@ RenderController::~RenderController()
     }
 }
 
-void RenderController::threadStart() const
+void RenderController::threadsStart() const
 {
     RenderThreadVector_t::const_iterator itr = _renderThreads.begin();
     for(; itr != _renderThreads.end(); ++itr)
@@ -31,7 +31,7 @@ void RenderController::threadStart() const
     }
 }
 
-void RenderController::threadActive() const
+void RenderController::threadsActive() const
 {
     RenderThreadVector_t::const_iterator itr = _renderThreads.begin();
     for(; itr != _renderThreads.end(); ++itr)
@@ -40,7 +40,7 @@ void RenderController::threadActive() const
     }
 }
 
-void RenderController::threadWait() const
+void RenderController::threadsWait() const
 {
     RenderThreadVector_t::const_iterator itr = _renderThreads.begin();
     for(; itr != _renderThreads.end(); ++itr)
@@ -49,7 +49,7 @@ void RenderController::threadWait() const
     }
 }
 
-void RenderController::threadStop() const
+void RenderController::threadsStop() const
 {
     RenderThreadVector_t::const_iterator itr = _renderThreads.begin();
     for(; itr != _renderThreads.end(); ++itr)

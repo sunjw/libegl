@@ -11,6 +11,7 @@
 
 #include <vector>
 
+#include "Lock.h"
 #include "RenderThread.h"
 
 class RenderController
@@ -22,18 +23,26 @@ public:
     inline void addRenderThread(RenderThread *renderThread)
     { _renderThreads.push_back(renderThread); }
     
-    void threadStart() const;
+    void threadsStart() const;
     
-    void threadActive() const;
+    void threadsActive() const;
     
-    void threadWait() const;
+    void threadsWait() const;
     
-    void threadStop() const;
+    void threadsStop() const;
+    
+    inline void lockRenderMutex()
+    { _renderMutex.lock(); }
+    
+    inline void unlockRenderMutex()
+    { _renderMutex.unlock(); }
     
 private:
     typedef std::vector<RenderThread *> RenderThreadVector_t;
     
     RenderThreadVector_t _renderThreads;
+    
+    Mutex _renderMutex;
 };
 
 #endif // _RENDER_CONTROLLER_H_
