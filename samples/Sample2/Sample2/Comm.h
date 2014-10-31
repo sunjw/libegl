@@ -14,7 +14,9 @@
 #include <unistd.h>
 
 enum APP_STATE {
-    APP_RUNNING = 0,
+    APP_ACTIVE = 0,
+    APP_NOACTIVE,
+    APP_FOREGROUND,
     APP_BACKGROUND,
     APP_TERMINATE,
 };

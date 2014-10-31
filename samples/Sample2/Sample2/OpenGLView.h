@@ -13,10 +13,6 @@
 
 @interface OpenGLView : UIView
 
-- (BOOL) isGotoTerminate;
-
-- (void) startDraw;
-
 - (void) setupGL;
 
 - (void) cleanupGL;

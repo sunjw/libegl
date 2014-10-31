@@ -19,7 +19,7 @@ Thread::Thread(ThreadFunc_t func, void* arg)
 void* Thread::threadStubFunc(void* pThread)
 {
     Thread *th = (Thread *)pThread;
-    return th->_pthFunc(th->_pArg);
+    return th->_pthFunc(th);
 }
 
 void Thread::run()

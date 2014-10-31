@@ -21,6 +21,9 @@ public:
     inline pthread_t getPthId() const
     { return _pthId; }
     
+    inline void *getArg() const
+    { return _pArg; }
+    
     void run();
     
     void join() const;

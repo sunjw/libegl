@@ -10,10 +10,13 @@
 
 #include "OpenGLView.h"
 
+#include "RenderController.h"
+
+extern RenderController g_renderController;
+
 @interface OpenGLViewController () {
     
 }
-@property (strong, nonatomic) EAGLContext *context;
 
 @end
 
@@ -31,7 +34,7 @@
 
     [self.view addSubview:openGLView];
     
-    [openGLView startDraw];
+    g_renderController.threadStart();
 }
 
 - (void) dealloc {
@@ -43,7 +46,6 @@
 
     if ([self isViewLoaded] && ([[self view] window] == nil)) {
         self.view = nil;
-        self.context = nil;
     }
 
     // Dispose of any resources that can be recreated.

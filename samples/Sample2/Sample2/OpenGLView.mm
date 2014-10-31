@@ -13,7 +13,9 @@
 #import <OpenGLES/ES1/glext.h>
 
 #include "Comm.h"
-#include "Thread.h"
+#include "Lock.h"
+#include "RenderThread.h"
+#include "RenderController.h"
 
 static GLint s_vertices[][3] = {
     { -0x10000, -0x10000, -0x10000 },
@@ -46,15 +48,13 @@ static GLubyte s_indices[] = {
     3, 0, 1,    3, 1, 2
 };
 
-extern int g_appState;
+extern RenderController g_renderController;
 
 void *renderThreadFunc(void *arg);
 
 @implementation OpenGLView {
     CAEAGLLayer *_mainLayer;
     CAEAGLLayer *_newLayer;
-    
-    Thread *_renderThread;
     
     BOOL _gotoTerminate;
     
@@ -108,7 +108,9 @@ void *renderThreadFunc(void *arg);
         
         _angle = 0.0f;
         
-        _renderThread = new Thread(renderThreadFunc, (__bridge void *)self);
+        RenderThread *renderThread = new RenderThread(renderThreadFunc, (__bridge void *)self);
+        
+        g_renderController.setRenderThread(renderThread);
         
     }
     
@@ -116,21 +118,7 @@ void *renderThreadFunc(void *arg);
 }
 
 - (void) dealloc {
-    _gotoTerminate = TRUE;
     
-    if(_renderThread) {
-        _renderThread->join();
-        delete _renderThread;
-    }
-}
-
-- (BOOL) isGotoTerminate {
-    return _gotoTerminate;
-}
-
-- (void) startDraw {
-    if (_renderThread)
-        _renderThread->run();
 }
 
 - (void) setupGL {
@@ -254,27 +242,36 @@ void *renderThreadFunc(void *arg);
 @end
 
 void *renderThreadFunc(void *arg) {
-    OpenGLView *openGLView = (__bridge OpenGLView *)arg;
+    RenderThread *thisThread = (RenderThread *)arg;
+    
+    OpenGLView *openGLView = (__bridge OpenGLView *)thisThread->getArg();
     
     [openGLView setupGL];
     
     [openGLView prepareDrawing];
     
     while (1) {
-        if (g_appState == APP_TERMINATE ||
-            [openGLView isGotoTerminate])
-            break;
+        RenderThread::THREAD_STATE thState = thisThread->getState();
         
-        if (g_appState == APP_RUNNING) {
-            [openGLView drawFrame];
-    
-            [openGLView postOnScreen];
+        if (thState == RenderThread::THREAD_WAIT) {
+            thisThread->waitOnSignal();
         }
         
-        //usleep(10000); // 10ms
+        // retrieve state again
+        thState = thisThread->getState();
+        if (thState == RenderThread::THREAD_STOP) {
+            break;
+        }
+        
+        [openGLView drawFrame];
+        
+        [openGLView postOnScreen];
+        
     }
     
     [openGLView cleanupGL];
+    
+    thisThread->exited();
     
     return 0;
 }
