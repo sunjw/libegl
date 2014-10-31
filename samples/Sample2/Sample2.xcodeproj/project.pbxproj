@@ -11,7 +11,8 @@
 		41EFD1761A013F5B007B587E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41EFD1751A013F5B007B587E /* QuartzCore.framework */; };
 		41EFD1781A013F60007B587E /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41EFD1771A013F60007B587E /* OpenGLES.framework */; };
 		41EFD17A1A013F64007B587E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41EFD1791A013F64007B587E /* UIKit.framework */; };
-		5261CFB61A00CB15003D3FC2 /* OpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5261CFB51A00CB15003D3FC2 /* OpenGLView.m */; };
+		5261CFB61A00CB15003D3FC2 /* OpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5261CFB51A00CB15003D3FC2 /* OpenGLView.mm */; };
+		526FB9431A03344300704C16 /* Thread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 526FB9421A03344300704C16 /* Thread.cpp */; };
 		528CBF0F1A00A73E005A2064 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 528CBF0E1A00A73E005A2064 /* main.m */; };
 		528CBF121A00A73E005A2064 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 528CBF111A00A73E005A2064 /* AppDelegate.m */; };
 		528CBF191A00A73F005A2064 /* OpenGLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 528CBF181A00A73F005A2064 /* OpenGLViewController.m */; };
@@ -37,7 +38,9 @@
 		41EFD1771A013F60007B587E /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		41EFD1791A013F64007B587E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5261CFB41A00CAFC003D3FC2 /* OpenGLView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenGLView.h; sourceTree = "<group>"; };
-		5261CFB51A00CB15003D3FC2 /* OpenGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenGLView.m; path = Sample2/OpenGLView.m; sourceTree = "<group>"; };
+		5261CFB51A00CB15003D3FC2 /* OpenGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OpenGLView.mm; path = Sample2/OpenGLView.mm; sourceTree = "<group>"; };
+		526FB9411A0333B400704C16 /* Thread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Thread.h; sourceTree = "<group>"; };
+		526FB9421A03344300704C16 /* Thread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Thread.cpp; path = Sample2/Thread.cpp; sourceTree = "<group>"; };
 		528CBF091A00A73E005A2064 /* Sample2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		528CBF0D1A00A73E005A2064 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		528CBF0E1A00A73E005A2064 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -91,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				52CA76F41A00F5AC00E5BE52 /* Comm.h */,
+				526FB9411A0333B400704C16 /* Thread.h */,
 				528CBF101A00A73E005A2064 /* AppDelegate.h */,
 				5261CFB41A00CAFC003D3FC2 /* OpenGLView.h */,
 				528CBF171A00A73E005A2064 /* OpenGLViewController.h */,
@@ -102,8 +106,9 @@
 		526FB9401A03334C00704C16 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				526FB9421A03344300704C16 /* Thread.cpp */,
 				528CBF111A00A73E005A2064 /* AppDelegate.m */,
-				5261CFB51A00CB15003D3FC2 /* OpenGLView.m */,
+				5261CFB51A00CB15003D3FC2 /* OpenGLView.mm */,
 				528CBF181A00A73F005A2064 /* OpenGLViewController.m */,
 			);
 			name = src;
@@ -270,7 +275,8 @@
 				528CBF121A00A73E005A2064 /* AppDelegate.m in Sources */,
 				528CBF191A00A73F005A2064 /* OpenGLViewController.m in Sources */,
 				528CBF0F1A00A73E005A2064 /* main.m in Sources */,
-				5261CFB61A00CB15003D3FC2 /* OpenGLView.m in Sources */,
+				526FB9431A03344300704C16 /* Thread.cpp in Sources */,
+				5261CFB61A00CB15003D3FC2 /* OpenGLView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -2,19 +2,31 @@
 //  OpenGLView.h
 //  Sample2
 //
-//  Created by TM Test on 10/29/14.
+//  Created by Wayne Sun on 10/29/14.
 //  Copyright (c) 2014 TrendMicro. All rights reserved.
 //
 
-#ifndef Sample2_OpenGLView_h
-#define Sample2_OpenGLView_h
+#ifndef _OPENGL_View_H_
+#define _OPENGL_View_H_
 
 #import <UIKit/UIKit.h>
 
 @interface OpenGLView : UIView
 
-- (void) startLoop;
+- (BOOL) isGotoTerminate;
+
+- (void) startDraw;
+
+- (void) setupGL;
+
+- (void) cleanupGL;
+
+- (void) postOnScreen;
+
+- (void) prepareDrawing;
+
+- (void) drawFrame;
 
 @end
 
-#endif
+#endif // _OPENGL_View_H_

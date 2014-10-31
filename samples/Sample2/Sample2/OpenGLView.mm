@@ -2,7 +2,7 @@
 //  OpenGLView.m
 //  Sample2
 //
-//  Created by TM Test on 10/29/14.
+//  Created by Wayne Sun on 10/29/14.
 //  Copyright (c) 2014 TrendMicro. All rights reserved.
 //
 
@@ -13,6 +13,7 @@
 #import <OpenGLES/ES1/glext.h>
 
 #include "Comm.h"
+#include "Thread.h"
 
 static GLint s_vertices[][3] = {
     { -0x10000, -0x10000, -0x10000 },
@@ -47,9 +48,15 @@ static GLubyte s_indices[] = {
 
 extern int g_appState;
 
+void *renderThreadFunc(void *arg);
+
 @implementation OpenGLView {
     CAEAGLLayer *_mainLayer;
     CAEAGLLayer *_newLayer;
+    
+    Thread *_renderThread;
+    
+    BOOL _gotoTerminate;
     
     EAGLContext *_eaglContext;
     
@@ -93,15 +100,15 @@ extern int g_appState;
         
         [_mainLayer addSublayer:_newLayer];
         
+        _gotoTerminate = FALSE;
+        
         _framebuffer = 0;
         _colorRenderbuffer = 0;
         _depthRenderbuffer = 0;
         
         _angle = 0.0f;
         
-        [self setupGL];
-        
-        [self prepareDrawing];
+        _renderThread = new Thread(renderThreadFunc, (__bridge void *)self);
         
     }
     
@@ -109,15 +116,21 @@ extern int g_appState;
 }
 
 - (void) dealloc {
-    [self cleanupGL];
+    _gotoTerminate = TRUE;
+    
+    if(_renderThread) {
+        _renderThread->join();
+        delete _renderThread;
+    }
 }
 
-- (void) startLoop {
-    CADisplayLink *displayLink = [CADisplayLink
-                                  displayLinkWithTarget:self
-                                  selector:@selector(loopCallback)];
-    [displayLink addToRunLoop:[NSRunLoop currentRunLoop]
-                      forMode:NSDefaultRunLoopMode];
+- (BOOL) isGotoTerminate {
+    return _gotoTerminate;
+}
+
+- (void) startDraw {
+    if (_renderThread)
+        _renderThread->run();
 }
 
 - (void) setupGL {
@@ -187,15 +200,6 @@ extern int g_appState;
     _eaglContext = nil;
 }
 
-- (void) loopCallback {
-    if(g_appState != APP_RUNNING)
-        return;
-    
-    [self drawFrame];
-    
-    [self postOnScreen];
-}
-
 // Post OpenGL rendering image on screen though CAEAGLLayer
 - (void) postOnScreen {
     glBindRenderbufferOES(GL_RENDERBUFFER_OES, _colorRenderbuffer);
@@ -248,3 +252,30 @@ extern int g_appState;
 }
 
 @end
+
+void *renderThreadFunc(void *arg) {
+    OpenGLView *openGLView = (__bridge OpenGLView *)arg;
+    
+    [openGLView setupGL];
+    
+    [openGLView prepareDrawing];
+    
+    while (1) {
+        if (g_appState == APP_TERMINATE ||
+            [openGLView isGotoTerminate])
+            break;
+        
+        if (g_appState == APP_RUNNING) {
+            [openGLView drawFrame];
+    
+            [openGLView postOnScreen];
+        }
+        
+        //usleep(10000); // 10ms
+    }
+    
+    [openGLView cleanupGL];
+    
+    return 0;
+}
+
