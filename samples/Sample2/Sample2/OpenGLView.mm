@@ -110,7 +110,7 @@ void *renderThreadFunc(void *arg);
         
         RenderThread *renderThread = new RenderThread(renderThreadFunc, (__bridge void *)self);
         
-        g_renderController.setRenderThread(renderThread);
+        g_renderController.addRenderThread(renderThread);
         
     }
     
@@ -242,6 +242,8 @@ void *renderThreadFunc(void *arg);
 @end
 
 void *renderThreadFunc(void *arg) {
+    NSLog(@"renderThreadFunc start");
+    
     RenderThread *thisThread = (RenderThread *)arg;
     
     OpenGLView *openGLView = (__bridge OpenGLView *)thisThread->getArg();
@@ -254,7 +256,9 @@ void *renderThreadFunc(void *arg) {
         RenderThread::THREAD_STATE thState = thisThread->getState();
         
         if (thState == RenderThread::THREAD_WAIT) {
+            NSLog(@"renderThreadFunc waitOn");
             thisThread->waitOnSignal();
+            NSLog(@"renderThreadFunc alive");
         }
         
         // retrieve state again
@@ -272,6 +276,8 @@ void *renderThreadFunc(void *arg) {
     [openGLView cleanupGL];
     
     thisThread->exited();
+    
+    NSLog(@"renderThreadFunc exited");
     
     return 0;
 }

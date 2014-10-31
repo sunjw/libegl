@@ -11,47 +11,49 @@
 #include "RenderThread.h"
 
 RenderController::RenderController()
-:_renderThread(NULL)
-{
-    
-}
+{ }
 
 RenderController::~RenderController()
 {
-    if (_renderThread) {
-        delete _renderThread;
-        _renderThread = NULL;
+    RenderThreadVector_t::iterator itr = _renderThreads.begin();
+    for(; itr != _renderThreads.end(); ++itr)
+    {
+        delete *itr;
     }
 }
 
 void RenderController::threadStart() const
 {
-    if (_renderThread == NULL)
-        return;
-    
-    _renderThread->run();
+    RenderThreadVector_t::const_iterator itr = _renderThreads.begin();
+    for(; itr != _renderThreads.end(); ++itr)
+    {
+        (*itr)->run();
+    }
 }
 
 void RenderController::threadActive() const
 {
-    if (_renderThread == NULL)
-        return;
-    
-    _renderThread->active();
+    RenderThreadVector_t::const_iterator itr = _renderThreads.begin();
+    for(; itr != _renderThreads.end(); ++itr)
+    {
+        (*itr)->active();
+    }
 }
 
 void RenderController::threadWait() const
 {
-    if (_renderThread == NULL)
-        return;
-    
-    _renderThread->wait();
+    RenderThreadVector_t::const_iterator itr = _renderThreads.begin();
+    for(; itr != _renderThreads.end(); ++itr)
+    {
+        (*itr)->wait();
+    }
 }
 
 void RenderController::threadStop() const
 {
-    if (_renderThread == NULL)
-        return;
-    
-    _renderThread->stop();
+    RenderThreadVector_t::const_iterator itr = _renderThreads.begin();
+    for(; itr != _renderThreads.end(); ++itr)
+    {
+        (*itr)->stop();
+    }
 }

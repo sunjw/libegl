@@ -9,6 +9,8 @@
 #ifndef _RENDER_CONTROLLER_H_
 #define _RENDER_CONTROLLER_H_
 
+#include <vector>
+
 #include "RenderThread.h"
 
 class RenderController
@@ -17,11 +19,8 @@ public:
     RenderController();
     ~RenderController();
     
-    inline void setRenderThread(RenderThread *renderThread)
-    { _renderThread = renderThread; }
-    
-    inline RenderThread *getRenderThread() const
-    { return _renderThread; }
+    inline void addRenderThread(RenderThread *renderThread)
+    { _renderThreads.push_back(renderThread); }
     
     void threadStart() const;
     
@@ -32,7 +31,9 @@ public:
     void threadStop() const;
     
 private:
-    RenderThread *_renderThread;
+    typedef std::vector<RenderThread *> RenderThreadVector_t;
+    
+    RenderThreadVector_t _renderThreads;
 };
 
 #endif // _RENDER_CONTROLLER_H_
