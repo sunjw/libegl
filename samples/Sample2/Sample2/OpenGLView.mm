@@ -180,7 +180,7 @@ extern RenderController g_renderController;
     
     // This for CAEAGLLayer rendering
     [renderCtx->eaglContext renderbufferStorage:GL_RENDERBUFFER_OES
-                         fromDrawable:renderCtx->eaglLayer];
+                                   fromDrawable:renderCtx->eaglLayer];
     
     
     glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES,

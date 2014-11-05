@@ -88,7 +88,7 @@ bool windowsurfacehelper_createFrameBuffer(struct EAGL_egl_context* context, _EA
     
     // Allocate colorbuffer storage (same as glRenderbufferStorage)
     BOOL r = [context->Context.nativeContext renderbufferStorage:api->GL_RENDERBUFFER_
-                                             fromDrawable: surface.windowSurface];
+                                                    fromDrawable:surface.windowSurface];
     GL_CLEANUP_ERROR(((r ? GL_NO_ERROR : (GL_NO_ERROR+1)) != GL_NO_ERROR), cleanup)
     
     // Get surface size from color buffer
