@@ -133,10 +133,10 @@ extern RenderController g_renderController;
         renderContext->eaglLayer = [[CAEAGLLayer alloc] init];
         renderContext->eaglLayer.opaque = NO;
         
-        CGColorSpaceRef rgb = CGColorSpaceCreateDeviceRGB();
-        const CGFloat myColor[] = {0.0, 0.0, 0.0, 0.0};
-        renderContext->eaglLayer.backgroundColor = CGColorCreate(rgb, myColor);
-        CGColorSpaceRelease(rgb);
+        CGColorSpaceRef rgbSpace = CGColorSpaceCreateDeviceRGB();
+        const CGFloat colorTransparent[] = {0.0, 0.0, 0.0, 0.0};
+        renderContext->eaglLayer.backgroundColor = CGColorCreate(rgbSpace, colorTransparent);
+        CGColorSpaceRelease(rgbSpace);
         
         renderContext->eaglLayer.frame = CGRectMake(-20 + threadCount * 20,
                                                     -20 + threadCount * 20,

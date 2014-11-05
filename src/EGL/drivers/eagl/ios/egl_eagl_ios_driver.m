@@ -635,7 +635,8 @@ EGLBoolean EAGLIOS_SwapBuffers( struct EAGL_egl_display* EAGL_dpy, struct EAGL_e
         GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
     }
     
-    BOOL b = [EAGL_context->Context.nativeContext presentRenderbuffer:EAGL_context->OpenGLESAPI.GL_RENDERBUFFER_];
+    BOOL b = [EAGL_context->Context.nativeContext
+              presentRenderbuffer:EAGL_context->OpenGLESAPI.GL_RENDERBUFFER_];
     return b == YES ? EGL_TRUE : EGL_FALSE;
     cleanup:
     return EGL_FALSE;
