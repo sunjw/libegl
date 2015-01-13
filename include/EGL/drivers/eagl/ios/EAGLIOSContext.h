@@ -36,11 +36,11 @@
 /**
  * iOS Native EAGL Context
  */
-@property (OWNERSHIP_QUALIFIER_STRONG, nonatomic) EAGLContext* nativeContext;
+@property (OWNERSHIP_QUALIFIER_STRONG, atomic) EAGLContext* nativeContext;
 /**
  * iOS Native  EAGL Shared Context
  */
-@property (OWNERSHIP_QUALIFIER_STRONG, nonatomic) EAGLSharegroup* nativeSharedGroup;
+@property (OWNERSHIP_QUALIFIER_STRONG, atomic) EAGLSharegroup* nativeSharedGroup;
 @end
 
 #endif  // INCLUDE_EGL_DRIVERS_EAGL_IOS_EAGLIOSCONTEXT_H_
