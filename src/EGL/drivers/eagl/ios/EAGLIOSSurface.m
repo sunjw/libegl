@@ -112,7 +112,8 @@
 }
 
 - (void) setupVideoFrameIntervalUpdates:(NSUInteger) frameInterval {
-    if (!displayLink) {
+    return;
+    /*if (!displayLink) {
         if (frameInterval > 0) {
             displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(onDisplayFrameUpdate:)];
             displayLink.frameInterval = frameInterval;
@@ -129,7 +130,7 @@
         else if (frameInterval != [displayLink frameInterval]) {
             displayLink.frameInterval = frameInterval;
         }
-    }
+    }*/
 
 }
 
