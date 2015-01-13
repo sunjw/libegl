@@ -6,31 +6,6 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		C707D9CB15E99A5A00CD889E /* check-source-code-against-google-c++-style-guide */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = C707D9CC15E99A5A00CD889E /* Build configuration list for PBXAggregateTarget "check-source-code-against-google-c++-style-guide" */;
-			buildPhases = (
-				C707D9CF15E99A5F00CD889E /* ShellScript */,
-			);
-			dependencies = (
-			);
-			name = "check-source-code-against-google-c++-style-guide";
-			productName = "Check source code against Google C++ Style Guide";
-		};
-		C707D9D015E99ACB00CD889E /* build-docset */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = C707D9D115E99ACB00CD889E /* Build configuration list for PBXAggregateTarget "build-docset" */;
-			buildPhases = (
-				C707D9D415E99AD100CD889E /* Build Documentation */,
-			);
-			dependencies = (
-			);
-			name = "build-docset";
-			productName = "build-docset";
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
 		C70CEDB015E7BF5100017A65 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C70CEDAF15E7BF5100017A65 /* Foundation.framework */; };
 		C70CEDBF15E7BF5100017A65 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C70CEDBE15E7BF5100017A65 /* SenTestingKit.framework */; };
@@ -160,13 +135,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = C70CEDAB15E7BF5100017A65;
 			remoteInfo = "settingsapi-core-lib";
-		};
-		C7744F11160D39B500B4D516 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C70CEDA315E7BF5100017A65 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C707D9CB15E99A5A00CD889E;
-			remoteInfo = "check-source-code-against-google-c++-style-guide";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -724,7 +692,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				C7744F12160D39B500B4D516 /* PBXTargetDependency */,
 			);
 			name = egl;
 			productName = "settingsapi-core-lib";
@@ -756,6 +723,7 @@
 		C70CEDA315E7BF5100017A65 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastTestingUpgradeCheck = 0610;
 				LastUpgradeCheck = 0440;
 				ORGANIZATIONNAME = "IO Stark";
 			};
@@ -783,8 +751,6 @@
 			targets = (
 				C70CEDAB15E7BF5100017A65 /* egl */,
 				C70CEDBC15E7BF5100017A65 /* eglTests */,
-				C707D9CB15E99A5A00CD889E /* check-source-code-against-google-c++-style-guide */,
-				C707D9D015E99ACB00CD889E /* build-docset */,
 			);
 		};
 /* End PBXProject section */
@@ -826,33 +792,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		C707D9CF15E99A5F00CD889E /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "exit 0\ncd ${PROJECT_DIR}/../../../scripts/google-cpp-style-guide\nchmod 700 ./check.sh\n#./check.sh -i ${PROJECT_DIR}/../../../include/EGL -x ${PROJECT_DIR}/../../../include/EGL/egl.h ${PROJECT_DIR}/../../../include/EGL/eglext.h ${PROJECT_DIR}/../../../include/EGL/eglplatform.h\n#./check.sh -e ${PROJECT_DIR}/../../../include/KHR\n./check.sh -e ${PROJECT_DIR}/../../../include/EGL/platforms\n#./check.sh -i ${PROJECT_DIR}/../../../src\n./check.sh -e ${PROJECT_DIR}/../../../src/EGL/platforms\n./check.sh -i ${PROJECT_DIR}/../../../test";
-		};
-		C707D9D415E99AD100CD889E /* Build Documentation */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Build Documentation";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "cd ${PROJECT_DIR}/../../../scripts/doc\nchmod 700 ./tool-docset.sh\n./tool-docset.sh -f \"${PROJECT_DIR}/../../../doc/developer/developer.doxyfile\" -s \"${PROJECT_DIR}/../../../src \\\n${PROJECT_DIR}/../../../include\" -o \"${PROJECT_DIR}/../../../doc/developer\" -n \"API\" -r \"com.iostark\" -l \"true\"";
-		};
 		C70CEDBB15E7BF5100017A65 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -921,11 +860,6 @@
 			target = C70CEDAB15E7BF5100017A65 /* egl */;
 			targetProxy = C70CEDC315E7BF5100017A65 /* PBXContainerItemProxy */;
 		};
-		C7744F12160D39B500B4D516 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C707D9CB15E99A5A00CD889E /* check-source-code-against-google-c++-style-guide */;
-			targetProxy = C7744F11160D39B500B4D516 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -941,34 +875,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		C707D9CD15E99A5A00CD889E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		C707D9CE15E99A5A00CD889E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		C707D9D215E99ACB00CD889E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		C707D9D315E99ACB00CD889E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		C70CEDCF15E7BF5100017A65 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1037,7 +943,11 @@
 		C70CEDD215E7BF5100017A65 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = (
+					armv7s,
+					armv7,
+				);
+				CLANG_CXX_LIBRARY = "libstdc++";
 				DSTROOT = /tmp/eglgapi_core_lib.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1060,7 +970,11 @@
 		C70CEDD315E7BF5100017A65 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = (
+					armv7s,
+					armv7,
+				);
+				CLANG_CXX_LIBRARY = "libstdc++";
 				DSTROOT = /tmp/eglgapi_core_lib.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1128,24 +1042,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C707D9CC15E99A5A00CD889E /* Build configuration list for PBXAggregateTarget "check-source-code-against-google-c++-style-guide" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C707D9CD15E99A5A00CD889E /* Debug */,
-				C707D9CE15E99A5A00CD889E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C707D9D115E99ACB00CD889E /* Build configuration list for PBXAggregateTarget "build-docset" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C707D9D215E99ACB00CD889E /* Debug */,
-				C707D9D315E99ACB00CD889E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		C70CEDA615E7BF5100017A65 /* Build configuration list for PBXProject "eglapi-core-lib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
