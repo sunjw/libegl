@@ -375,13 +375,13 @@ EGLBoolean EAGLIOS_Initialize (struct EAGL_egl_display * dpy, _EGLDisplay *disp)
             w = [[[UIApplication sharedApplication] windows] objectAtIndex:0];
         }
         
-        EAGLIOSWindow* _w = OWNERSHIP_AUTORELEASE([[EAGLIOSWindow alloc] init]);
+        EAGLIOSWindow* _w = [[EAGLIOSWindow alloc] init];
         if (!_w) {
             return _eglError(EGL_NOT_INITIALIZED, "eglInitialize");
         }
         
         _w.window = w;
-        dpy->Window = OWNERSHIP_BRIDGE_RETAINED(EAGLIOSWindow *,_w);
+        dpy->Window = _w;
     }
 
     disp->ClientAPIs = EGL_OPENGL_ES_BIT | EGL_OPENGL_ES2_BIT | EGL_OPENGL_ES3_BIT_KHR;
@@ -391,7 +391,7 @@ EGLBoolean EAGLIOS_Initialize (struct EAGL_egl_display * dpy, _EGLDisplay *disp)
 }
 
 EGLBoolean EAGLIOS_Terminate (struct EAGL_egl_display *EAGL_dpy) {
-    OWNERSHIP_BRIDGE_TRANSFER(EAGLIOSWindow *,EAGL_dpy->Window);
+    OWNERSHIP_RELEASE(EAGL_dpy->Window);
     return EGL_TRUE;
 }
 
@@ -478,15 +478,15 @@ struct EAGL_egl_context* EAGLIOS_CreateContext(struct EAGL_egl_display *EAGL_dpy
     
     EAGLContext *nativeContext = nil;
     if (EAGL_ctx_shared != EGL_NO_CONTEXT) {
-        nativeContext = OWNERSHIP_AUTORELEASE(
-                                              [[EAGLContext alloc]
-                                               initWithAPI:EAGL_conf->Config.EAGLRenderingAPI
-                                               sharegroup:EAGL_ctx->Context.nativeSharedGroup]);
+        nativeContext = [[EAGLContext alloc]
+                         initWithAPI:EAGL_conf->Config.EAGLRenderingAPI
+                         sharegroup:EAGL_ctx->Context.nativeSharedGroup];
+        
     }
     else {
-        nativeContext = OWNERSHIP_AUTORELEASE(
-                                              [[EAGLContext alloc]
-                                               initWithAPI:EAGL_conf->Config.EAGLRenderingAPI]);
+        nativeContext = [[EAGLContext alloc]
+                         initWithAPI:EAGL_conf->Config.EAGLRenderingAPI];
+        
     }
     
     if (!nativeContext) {
@@ -494,23 +494,29 @@ struct EAGL_egl_context* EAGLIOS_CreateContext(struct EAGL_egl_display *EAGL_dpy
         return NULL;
     }
 
-    EAGLIOSContext* context = OWNERSHIP_AUTORELEASE([[EAGLIOSContext alloc] init]);
+    EAGLIOSContext* context = [[EAGLIOSContext alloc] init];
     if (!context) {
+        OWNERSHIP_RELEASE(nativeContext);
         _eglError(EGL_BAD_ALLOC, "eaglCreateContext");
         return NULL;
     }
     
     [context setNativeContext:nativeContext];
     [context setNativeSharedGroup:EAGL_ctx->Context.nativeSharedGroup];
-    EAGL_ctx->Context = OWNERSHIP_BRIDGE_RETAINED(_EAGLContext*, context);
+    EAGL_ctx->Context = context;
     
     EAGL_ctx->WasCurrent = EGL_FALSE;
+    
+    // Context will retain this context,
+    // so release here.
+    OWNERSHIP_RELEASE(nativeContext);
+    
     return EAGL_ctx;
 }
 
-void  EAGLIOS_DestroyContext ( _EAGLWindow *dpy, struct EAGL_egl_context* ctx) {
-    if(ctx->Context != NULL) {
-        OWNERSHIP_BRIDGE_TRANSFER(_EAGLContext*, ctx->Context);
+void EAGLIOS_DestroyContext(_EAGLWindow *dpy, struct EAGL_egl_context* ctx) {
+    if (ctx->Context != NULL) {
+        OWNERSHIP_RELEASE(ctx->Context);
         ctx->Context = NULL;
     }
 }
@@ -532,10 +538,10 @@ EGLBoolean EAGLIOS_MakeCurrent(_EAGLWindow *dpy,
         isCurrent = windowsurfacehelper_makeFrameBufferCurrent(EAGL_octx,
                                                                EAGL_odsurf->Surface,
                                                                api); // Why am I doing this ?
-        if (!isCurrent) {
-            // What is the error to raise ?
-            return EGL_FALSE;
-        }
+        //if (!isCurrent) {
+        //    // What is the error to raise ?
+        //    return EGL_FALSE;
+        //}
         /** Set old context as non current */
         setCtxSuccess = [EAGLContext setCurrentContext: nil];
         if (!setCtxSuccess) {
@@ -586,10 +592,12 @@ EGLBoolean EAGLIOS_MakeCurrent(_EAGLWindow *dpy,
     /** Set surfaces as current */
     GLenum error = GL_NO_ERROR;
     int step = 1;
-    if (!EAGL_ctx->WasCurrent) {
+    if (EAGL_dsurf->Surface.buffers.framebuffer == 0) {
+        //printf("EAGLIOS_MakeCurrent, renderbufferStorage.\n");
         bool setFBSuccess = windowsurfacehelper_createFrameBuffer(EAGL_ctx,
                                                                   EAGL_dsurf->Surface,
                                                                   api);
+        
         GL_CLEANUP_ERROR(!setFBSuccess, cleanup)
         EGLint surfaceWidth = EAGL_dsurf->Base.Width;
         EGLint surfaceHeight = EAGL_dsurf->Base.Height;
@@ -599,13 +607,14 @@ EGLBoolean EAGLIOS_MakeCurrent(_EAGLWindow *dpy,
         GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
         GL_GET_ERROR(api->glScissor(0,0, surfaceWidth, surfaceHeight), error, step)
         GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
-        EAGL_ctx->WasCurrent = EGL_TRUE;
+        //EAGL_ctx->WasCurrent = EGL_TRUE;
     }
     
     isCurrent = windowsurfacehelper_makeFrameBufferCurrent(EAGL_ctx,
                                                            EAGL_dsurf->Surface,
                                                            api);
     GL_CLEANUP_ERROR(!isCurrent, cleanup)
+    
     return EGL_TRUE;
     
 cleanup:
@@ -623,20 +632,21 @@ EGLBoolean EAGLIOS_SwapBuffers( struct EAGL_egl_display* EAGL_dpy, struct EAGL_e
     
     [EAGL_surf->Surface setupVideoFrameIntervalUpdates:EAGL_surf->Base.SwapInterval];
     
-    if (EAGL_surf->Base.SwapInterval > 0) {
-        [EAGL_surf->Surface waitUntilMinIntervalFrameUpdated];
-    }
+    //if (EAGL_surf->Base.SwapInterval > 0) {
+    //    [EAGL_surf->Surface waitUntilMinIntervalFrameUpdated];
+    //}
     
-    if (SYSTEM_VERSION_LESS_THAN(@"6.0.0")) {
+    //if (SYSTEM_VERSION_LESS_THAN(@"6.0.0")) {
         _OpenGLESAPI* api = &EAGL_context->OpenGLESAPI;
         int step = 0;
         GLenum error = GL_NO_ERROR;
         GL_GET_ERROR(api->glFlush(), error, step)
         GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
-    }
+    //}
     
     BOOL b = [EAGL_context->Context.nativeContext
               presentRenderbuffer:EAGL_context->OpenGLESAPI.GL_RENDERBUFFER_];
+    
     return b == YES ? EGL_TRUE : EGL_FALSE;
     cleanup:
     return EGL_FALSE;
@@ -724,10 +734,10 @@ EGLBoolean EAGLIOS_CreateWindow(struct EAGL_egl_display *EAGL_dpy,
     //    }
     id<EAGLDrawable> nativeEAGLDrawable = window;
     
-    _EAGLSurface* eaglSurface = OWNERSHIP_AUTORELEASE([[_EAGLSurface alloc] init]);
+    _EAGLSurface* eaglSurface = [[_EAGLSurface alloc] init];
     [eaglSurface setWindowSurface:nativeEAGLDrawable];
     
-    EAGL_surf->Surface = OWNERSHIP_BRIDGE_RETAINED(CFTypeRef, eaglSurface);
+    EAGL_surf->Surface = eaglSurface;
     
     //    UIView* v = (UIView*)obj;
     //    id<EAGLDrawable> eaglSurface = (id<EAGLDrawable>)[v layer];
@@ -792,7 +802,7 @@ EGLBoolean EAGLIOS_DestroyWindow(struct EAGL_egl_display *EAGL_dpy, struct EAGL_
     }
     
     /** Release Surface memory */
-    OWNERSHIP_BRIDGE_TRANSFER(_EAGLSurface*, EAGL_surf->Surface);
+    OWNERSHIP_RELEASE(EAGL_surf->Surface);
     EAGL_surf->Surface = nil;
     _eglError(EGL_SUCCESS, "eglDestroySurface");
     return EGL_TRUE;

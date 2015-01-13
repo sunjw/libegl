@@ -423,7 +423,7 @@ EAGL_eglCreatePixmapSurface(_EGLDriver *drv, _EGLDisplay *disp,
         return NULL;
     }
     
-    _EAGLSurface* d = OWNERSHIP_AUTORELEASE([[_EAGLSurface alloc] init]);
+    _EAGLSurface* d = [[_EAGLSurface alloc] init];
     [d setPixmapSurface:pixmap];
     EAGL_surf->Surface = d;
     
@@ -460,7 +460,7 @@ EAGL_eglCreatePbufferSurface(_EGLDriver *drv, _EGLDisplay *disp,
         return NULL;
     }
     
-    _EAGLSurface* d = OWNERSHIP_AUTORELEASE([[_EAGLSurface alloc] init]);
+    _EAGLSurface* d = [[_EAGLSurface alloc] init];
     [d setPbufferSurface:nil];
     EAGL_surf->Surface = d;
     
