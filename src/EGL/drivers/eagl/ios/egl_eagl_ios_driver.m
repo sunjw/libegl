@@ -290,7 +290,7 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* n
     struct node* prev = NULL;
     int i = 0;
     while (current) {
-        current->config.ConfigID = i+1;
+        current->config.ConfigID = i++;
         
         struct EAGL_egl_config *EAGL_conf, template;
         EGLBoolean ok;
