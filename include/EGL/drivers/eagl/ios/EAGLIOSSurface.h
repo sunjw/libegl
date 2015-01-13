@@ -56,7 +56,7 @@
 /**
  * Native iOS Pbuffer Surface.
  */
-@property (OWNERSHIP_QUALIFIER_STRONG, nonatomic) id pbufferSurface;
+@property (OWNERSHIP_QUALIFIER_STRONG, nonatomic) id<EAGLDrawable> pbufferSurface;
 /**
  * Native iOS Pixmap Surface.
  */

@@ -68,7 +68,7 @@
 
 @synthesize pbufferSurface = _pbufferSurface;
 
--(void) setPbufferSurface:(id)surf {
+-(void) setPbufferSurface:(id<EAGLDrawable>)surf {
     if (_pbufferSurface != surf) {
         OWNERSHIP_RETAIN((id<NSObject>) surf);
         OWNERSHIP_RELEASE((id<NSObject>) _pbufferSurface);
