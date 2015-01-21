@@ -162,9 +162,9 @@ static EGLBoolean convert_eagl_ios_config (struct EAGL_egl_driver *EAGL_drv,
     _eglSetConfigKey(conf, EGL_NATIVE_VISUAL_ID       ,0); // No visual
     _eglSetConfigKey(conf, EGL_NATIVE_VISUAL_TYPE     ,EGL_NONE); // No visual
     _eglSetConfigKey(conf, EGL_RENDERABLE_TYPE        ,glv);
-    _eglSetConfigKey(conf, EGL_SAMPLE_BUFFERS         ,0); // TODO: How to get the right value ?
-    _eglSetConfigKey(conf, EGL_SAMPLES                ,_eglGetConfigKey(conf, EGL_SAMPLE_BUFFERS) == 0 ? 0 : 0);
-    _eglSetConfigKey(conf, EGL_STENCIL_SIZE           ,0);// TODO: How to get the right value ?
+    _eglSetConfigKey(conf, EGL_SAMPLE_BUFFERS         ,1); // TODO: How to get the right value ?
+    _eglSetConfigKey(conf, EGL_SAMPLES                ,_eglGetConfigKey(conf, EGL_SAMPLE_BUFFERS) == 1 ? 4 : 0);
+    _eglSetConfigKey(conf, EGL_STENCIL_SIZE           ,8);// TODO: How to get the right value ?
     _eglSetConfigKey(conf, EGL_SURFACE_TYPE           ,eagl_ios_config->SurfaceType);
     _eglSetConfigKey(conf, EGL_TRANSPARENT_TYPE       ,EGL_NONE); // TODO: How to get the right value ?
     switch (_eglGetConfigKey(conf, EGL_TRANSPARENT_TYPE)) {
