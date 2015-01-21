@@ -771,7 +771,7 @@ EGLBoolean EAGLIOS_CreateWindow(struct EAGL_egl_display *EAGL_dpy,
     CGSize frameSize = nativeEAGLLayer.frame.size;
     EAGL_surf->Base.Width = frameSize.width * contentScaleFactor;
     EAGL_surf->Base.Height = frameSize.height * contentScaleFactor;
-    EAGL_surf->Base.RenderBuffer = EGL_SINGLE_BUFFER;
+    EAGL_surf->Base.RenderBuffer = EGL_BACK_BUFFER;//EGL_SINGLE_BUFFER;
     
     return EGL_TRUE;
 }
