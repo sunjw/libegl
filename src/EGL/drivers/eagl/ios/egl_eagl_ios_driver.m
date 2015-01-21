@@ -288,7 +288,7 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* n
     
     struct node* current = realConfigs;
     struct node* prev = NULL;
-    int i = 0;
+    int i = 1;
     while (current) {
         current->config.ConfigID = i++;
         
