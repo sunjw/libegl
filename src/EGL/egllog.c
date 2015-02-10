@@ -157,7 +157,7 @@ _eglInitLogger(void)
    }
 
    logging.logger = _eglDefaultLogger;
-   logging.level = (level >= 0) ? level : FALLBACK_LOG_LEVEL;
+    logging.level = _EGL_DEBUG; //(level >= 0) ? level : FALLBACK_LOG_LEVEL;
    logging.initialized = EGL_TRUE;
 
    /* it is fine to call _eglLog now */
