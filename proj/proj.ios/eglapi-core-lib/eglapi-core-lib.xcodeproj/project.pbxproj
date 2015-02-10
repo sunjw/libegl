@@ -962,10 +962,7 @@
 		C70CEDD215E7BF5100017A65 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					armv7,
-					armv7s,
-				);
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LIBRARY = "libstdc++";
 				DSTROOT = /tmp/eglgapi_core_lib.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -977,6 +974,7 @@
 					"${SRCROOT}/../../../include",
 					"$(inherited)",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = egl;
@@ -989,10 +987,7 @@
 		C70CEDD315E7BF5100017A65 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					armv7,
-					armv7s,
-				);
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LIBRARY = "libstdc++";
 				DSTROOT = /tmp/eglgapi_core_lib.dst;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -1004,6 +999,7 @@
 					"${SRCROOT}/../../../include",
 					"$(inherited)",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
