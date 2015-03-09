@@ -26,7 +26,7 @@
 
 /* Khronos platform-specific types and definitions.
  *
- * $Revision: 9356 $ on $Date: 2009-10-21 02:52:25 -0700 (Wed, 21 Oct 2009) $
+ * $Revision: 23298 $ on $Date: 2013-09-30 17:07:13 -0700 (Mon, 30 Sep 2013) $
  *
  * Adopters may modify this file to suit their platform. Adopters are
  * encouraged to submit platform specific modifications to the Khronos
@@ -179,11 +179,11 @@ typedef unsigned __int64        khronos_uint64_t;
 typedef int                     khronos_int32_t;
 typedef unsigned int            khronos_uint32_t;
 #if defined(__arch64__) || defined(_LP64)
-typedef int64_t                khronos_int64_t;
-typedef uint64_t       khronos_uint64_t;
+typedef long int                khronos_int64_t;
+typedef unsigned long int       khronos_uint64_t;
 #else
-typedef int64_t           khronos_int64_t;
-typedef uint64_t  khronos_uint64_t;
+typedef long long int           khronos_int64_t;
+typedef unsigned long long int  khronos_uint64_t;
 #endif /* __arch64__ */
 #define KHRONOS_SUPPORT_INT64   1
 #define KHRONOS_SUPPORT_FLOAT   1
@@ -221,10 +221,23 @@ typedef signed   char          khronos_int8_t;
 typedef unsigned char          khronos_uint8_t;
 typedef signed   short int     khronos_int16_t;
 typedef unsigned short int     khronos_uint16_t;
+
+/*
+ * Types that differ between LLP64 and LP64 architectures - in LLP64, 
+ * pointers are 64 bits, but 'long' is still 32 bits. Win64 appears
+ * to be the only LLP64 architecture in current use.
+ */
+#ifdef _WIN64
+typedef signed   long long int khronos_intptr_t;
+typedef unsigned long long int khronos_uintptr_t;
+typedef signed   long long int khronos_ssize_t;
+typedef unsigned long long int khronos_usize_t;
+#else
 typedef signed   long  int     khronos_intptr_t;
 typedef unsigned long  int     khronos_uintptr_t;
 typedef signed   long  int     khronos_ssize_t;
 typedef unsigned long  int     khronos_usize_t;
+#endif
 
 #if KHRONOS_SUPPORT_FLOAT
 /*
