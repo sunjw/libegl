@@ -59,6 +59,8 @@ cleanup:
 
 bool windowsurfacehelper_createFrameBuffer(struct EAGL_egl_context* context, _EAGLSurface* surface,
                                            _OpenGLESAPI* api) {
+    _EAGLContext *origContext = (__bridge EAGLIOSContext *)(context->Context);
+    
     GLuint framebuffer = 0;
     GLuint colorbuffer = 0;
     GLuint depthbuffer = 0;
@@ -87,8 +89,8 @@ bool windowsurfacehelper_createFrameBuffer(struct EAGL_egl_context* context, _EA
     GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
     
     // Allocate colorbuffer storage (same as glRenderbufferStorage)
-    BOOL r = [context->Context.nativeContext renderbufferStorage:api->GL_RENDERBUFFER_
-                                                    fromDrawable:surface.windowSurface];
+    BOOL r = [origContext.nativeContext renderbufferStorage:api->GL_RENDERBUFFER_
+                                               fromDrawable:surface.windowSurface];
     GL_CLEANUP_ERROR(((r ? GL_NO_ERROR : (GL_NO_ERROR+1)) != GL_NO_ERROR), cleanup)
     
     // Get surface size from color buffer

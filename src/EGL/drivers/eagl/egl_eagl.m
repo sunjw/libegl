@@ -121,8 +121,11 @@ EAGL_eglInitialize(_EGLDriver *drv, _EGLDisplay *disp) {
         return EGL_FALSE;
     }
     
-    if (!EAGL_drv->QueryVersion(EAGL_dpy->Window,
-                                    &EAGL_dpy->VersionMajor, &EAGL_dpy->VersionMinor)) {
+    _EAGLWindow *origWindow = (__bridge EAGLIOSWindow *)(EAGL_dpy->Window);
+
+    if (!EAGL_drv->QueryVersion(origWindow,
+                                &EAGL_dpy->VersionMajor,
+                                &EAGL_dpy->VersionMinor)) {
         _eglLog(_EGL_WARNING, "EAGL_eglInitialize");
         if (!disp->PlatformDisplay) {
             // No need to destroy EAGL_dpy->dpy. EAGL_drv->eaglInitialize
@@ -225,7 +228,7 @@ destroy_context(_EGLDriver* drv, _EGLDisplay *disp, _EGLContext *context) {
     struct EAGL_egl_context *EAGL_ctx = EAGL_egl_context(context);
     
     assert(EAGL_ctx);
-    EAGL_drv->DestroyContext(EAGL_dpy->Window, EAGL_ctx);
+    EAGL_drv->DestroyContext((__bridge EAGLIOSWindow *)(EAGL_dpy->Window), EAGL_ctx);
     free(EAGL_ctx);
     
     return EGL_TRUE;
@@ -301,7 +304,11 @@ EAGL_eglMakeCurrent(_EGLDriver *drv, _EGLDisplay *disp, _EGLSurface *dsurf,
     struct EAGL_egl_surface *EAGL_orsurf = EAGL_egl_surface(old_rsurf);
     struct EAGL_egl_context *EAGL_octx = EAGL_egl_context(old_ctx);
     
-    ret = EAGL_drv->MakeCurrent(EAGL_dpy->Window, EAGL_dsurf, EAGL_rsurf, EAGL_ctx, EAGL_odsurf, EAGL_orsurf, EAGL_octx);
+    ret = EAGL_drv->MakeCurrent((__bridge EAGLIOSWindow *)(EAGL_dpy->Window),
+                                EAGL_dsurf, EAGL_rsurf,
+                                EAGL_ctx,
+                                EAGL_odsurf, EAGL_orsurf,
+                                EAGL_octx);
 
     if (ret) {
         if (_eglPutSurface(old_dsurf))
@@ -425,7 +432,7 @@ EAGL_eglCreatePixmapSurface(_EGLDriver *drv, _EGLDisplay *disp,
     
     _EAGLSurface* d = [[_EAGLSurface alloc] init];
     [d setPixmapSurface:pixmap];
-    EAGL_surf->Surface = d;
+    EAGL_surf->Surface = OWNERSHIP_BRIDGE_RETAINED(const void *, d);
     
     if (!EAGL_surf->Surface) {
         free(EAGL_surf);
@@ -462,7 +469,7 @@ EAGL_eglCreatePbufferSurface(_EGLDriver *drv, _EGLDisplay *disp,
     
     _EAGLSurface* d = [[_EAGLSurface alloc] init];
     [d setPbufferSurface:nil];
-    EAGL_surf->Surface = d;
+    EAGL_surf->Surface = OWNERSHIP_BRIDGE_RETAINED(const void *, d);
     
     if (!EAGL_surf->Surface) {
         free(EAGL_surf);

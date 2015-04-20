@@ -81,8 +81,6 @@
 
 -(void) setPixmapSurface:(CGContextRef)surf {
     if (_pixmapSurface != surf) {
-        OWNERSHIP_RETAIN((id<NSObject>) surf);
-        OWNERSHIP_RELEASE((id<NSObject>) _pixmapSurface);
         _pixmapSurface = surf;
         type = SURFACE_PIXMAP;
     }
@@ -102,7 +100,6 @@
 
 - (void)dealloc {
     OWNERSHIP_RELEASE((id<NSObject>) _windowSurface);
-    OWNERSHIP_RELEASE((id<NSObject>) _pixmapSurface);
     OWNERSHIP_RELEASE((id<NSObject>) _pbufferSurface);
     [self setupVideoFrameIntervalUpdates:0];
     OWNERSHIP_RELEASE((id<NSObject>) displayLink);

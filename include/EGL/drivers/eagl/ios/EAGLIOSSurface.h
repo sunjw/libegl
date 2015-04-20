@@ -60,7 +60,7 @@
 /**
  * Native iOS Pixmap Surface.
  */
-@property (OWNERSHIP_QUALIFIER_WEAK, nonatomic) CGContextRef pixmapSurface;
+@property (nonatomic) CGContextRef pixmapSurface;
 
 /** Native surface types */
 typedef enum {

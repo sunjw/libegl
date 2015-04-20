@@ -33,7 +33,7 @@
 struct EAGL_egl_display
 {
     //    _EGLDisplay Base;
-    _EAGLWindow *Window;
+    const void *Window; // _EAGLWindow *
     int VersionMajor;
     int VersionMinor;
     const char *extensions;

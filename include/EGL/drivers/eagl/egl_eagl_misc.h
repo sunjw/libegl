@@ -56,7 +56,8 @@ struct findresource {
 
 static void ExecFindNativeWindowAssociatedSurface (_EGLSurface* surface, EGLNativeWindowType window, bool* found) {
     struct EAGL_egl_surface* surf = EAGL_egl_surface(surface);
-    if (surf->Surface.windowSurface == window) {
+    _EAGLSurface *origSurface = (__bridge EAGLIOSSurface *)(surf->Surface);
+    if (origSurface.windowSurface == window) {
         *found = EGL_TRUE;
     }
 }
@@ -66,7 +67,8 @@ static void ExecSetContextLostStatus (_EGLContext* context) {
     _eaglSetContextLost(ctx, EGL_TRUE);
     struct EAGL_egl_surface* surf = EAGL_egl_surface(context->DrawSurface);
     if(surf && surf->Surface) {
-        [surf->Surface cancelWaitUntilMinIntervalFrameUpdated];
+        _EAGLSurface *origSurface = (__bridge EAGLIOSSurface *)(surf->Surface);
+        [origSurface cancelWaitUntilMinIntervalFrameUpdated];
     }
 }
 

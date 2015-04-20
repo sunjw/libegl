@@ -31,7 +31,7 @@
 typedef struct {
     EGLint ConfigID;
     int EAGLRenderingAPI;   // EAGLRenderingAPI
-    NSString* ColorFormat;  // kEAGLColorFormat*
+    void *ColorFormat;  // NSString *, kEAGLColorFormat*
     int DepthSize;          // Depth buffer Size (bits)
     int FrameBufferLevel;   // Layer level
     int SurfaceType;        // i.e EGL_WINDOW_BIT/EGL_PIXMAP_BIT/EGL_PBUFFER_BIT

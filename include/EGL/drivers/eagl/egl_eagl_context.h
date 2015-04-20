@@ -32,7 +32,7 @@
 struct EAGL_egl_context
 {
     _EGLContext Base;   /**< base class */
-    __OWNERSHIP_QUALIFIER_WEAK _EAGLContext* Context;
+    const void *Context; // _EAGLContext *
     _OpenGLESAPI OpenGLESAPI;
     EGLBoolean WasCurrent; // EGL_TRUE if this context has been current at least once
     EGLBoolean ContextLost;

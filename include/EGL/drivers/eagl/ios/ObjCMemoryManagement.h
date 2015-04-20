@@ -115,7 +115,7 @@
     #define OWNERSHIP_BRIDGE_NONE(type, typeRef) (__bridge type) typeRef
     #define OWNERSHIP_BRIDGE_RETAINED(cfType, nsTypeRef) (__bridge_retained cfType) nsTypeRef // i.e CFBridgingRetain(nsTypeRef)
     #define OWNERSHIP_BRIDGE_TRANSFER(nsType, cfTypeRef) (__bridge_transfer nsType) cfTypeRef // i.e i.e CFBridgingRelease(cfTypeRef)
-    #define METHOD_DEALLOC(obj) obj // Usage: [self METHOD_DEALLOC];
+    #define METHOD_DEALLOC(obj) // Usage: [self METHOD_DEALLOC];
     #define OWNERSHIP_RETAIN(obj) (id)obj
     #define OWNERSHIP_RELEASE(obj) (id)obj
     #define OWNERSHIP_AUTORELEASE(obj) (id)obj
