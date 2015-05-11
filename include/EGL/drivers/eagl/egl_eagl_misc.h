@@ -57,7 +57,7 @@ struct findresource {
 static void ExecFindNativeWindowAssociatedSurface (_EGLSurface* surface, EGLNativeWindowType window, bool* found) {
     struct EAGL_egl_surface* surf = EAGL_egl_surface(surface);
     _EAGLSurface *origSurface = (__bridge EAGLIOSSurface *)(surf->Surface);
-    if (origSurface.windowSurface == window) {
+    if (origSurface.windowSurface == (__bridge id<EAGLDrawable>)window) {
         *found = EGL_TRUE;
     }
 }
