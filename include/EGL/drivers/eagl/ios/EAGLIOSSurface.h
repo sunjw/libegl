@@ -40,27 +40,27 @@
 /**
  * Native OpenGL buffers ids.
  */
-@property (nonatomic, assign) _OpenGLBuffers buffers;
+@property (assign, atomic) _OpenGLBuffers buffers;
 /**
  * Native iOS EAGLContext with ShareGroup.
  */
-@property (OWNERSHIP_QUALIFIER_STRONG, nonatomic) EAGLContext* sharegroup;
+@property (OWNERSHIP_QUALIFIER_STRONG, atomic) EAGLContext* sharegroup;
 /**
  * Native OpenGL API.
  */
-@property (nonatomic, assign) __OpenGLESAPI api;
+@property (assign, atomic) __OpenGLESAPI api;
 /**
  * Native iOS Window Surface.
  */
-@property (OWNERSHIP_QUALIFIER_STRONG, nonatomic) id<EAGLDrawable> windowSurface;
+@property (OWNERSHIP_QUALIFIER_STRONG, atomic) id<EAGLDrawable> windowSurface;
 /**
  * Native iOS Pbuffer Surface.
  */
-@property (OWNERSHIP_QUALIFIER_STRONG, nonatomic) id<EAGLDrawable> pbufferSurface;
+@property (OWNERSHIP_QUALIFIER_STRONG, atomic) id<EAGLDrawable> pbufferSurface;
 /**
  * Native iOS Pixmap Surface.
  */
-@property (nonatomic) CGContextRef pixmapSurface;
+@property (atomic) CGContextRef pixmapSurface;
 
 /** Native surface types */
 typedef enum {
