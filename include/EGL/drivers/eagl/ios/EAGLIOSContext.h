@@ -41,6 +41,8 @@
  * iOS Native  EAGL Shared Context
  */
 @property (OWNERSHIP_QUALIFIER_STRONG, atomic) EAGLSharegroup* nativeSharedGroup;
+
+@property (assign, atomic) bool surfaceStorage;
 @end
 
 #endif  // INCLUDE_EGL_DRIVERS_EAGL_IOS_EAGLIOSCONTEXT_H_

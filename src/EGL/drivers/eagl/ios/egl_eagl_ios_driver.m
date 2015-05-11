@@ -358,10 +358,10 @@ EGLBoolean EAGLIOS_Initialize (struct EAGL_egl_display * dpy, _EGLDisplay *disp)
         };
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
         NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
-        [center addObserverForName:UIApplicationDidEnterBackgroundNotification
-                            object:nil
-                             queue:mainQueue
-                         usingBlock:onContextLostOrRetrieved];
+        //[center addObserverForName:UIApplicationDidEnterBackgroundNotification
+        //                    object:nil
+        //                     queue:mainQueue
+        //                 usingBlock:onContextLostOrRetrieved];
         [center addObserverForName:UIApplicationWillTerminateNotification
                             object:nil
                              queue:mainQueue
@@ -640,7 +640,7 @@ EGLBoolean EAGLIOS_SwapBuffers( struct EAGL_egl_display* EAGL_dpy, struct EAGL_e
     struct EAGL_egl_context *EAGL_context = EAGL_egl_context(EAGL_surf->Base.CurrentContext);
     _EAGLContext *origContext = (__bridge EAGLIOSContext *)(EAGL_context->Context);
     if (origContext == nil && origContext.nativeContext == nil) {
-       return _eglError(EGL_BAD_SURFACE, "eaglSwapBuffers");
+       return _eglError(EGL_BAD_SURFACE, "eaglSwapBuffers, context is nil.");
     }
     
     _EAGLSurface *origSurface = (__bridge EAGLIOSSurface *)(EAGL_surf->Surface);
@@ -650,8 +650,9 @@ EGLBoolean EAGLIOS_SwapBuffers( struct EAGL_egl_display* EAGL_dpy, struct EAGL_e
     //    [EAGL_surf->Surface waitUntilMinIntervalFrameUpdated];
     //}
     
+    _OpenGLESAPI* api = &EAGL_context->OpenGLESAPI;
+    
     //if (SYSTEM_VERSION_LESS_THAN(@"6.0.0")) {
-        _OpenGLESAPI* api = &EAGL_context->OpenGLESAPI;
         int step = 0;
         GLenum error = GL_NO_ERROR;
         GL_GET_ERROR(api->glFlush(), error, step)
@@ -660,7 +661,7 @@ EGLBoolean EAGLIOS_SwapBuffers( struct EAGL_egl_display* EAGL_dpy, struct EAGL_e
     
     if (origContext.nativeContext != [EAGLContext currentContext])
     {
-        _eglError(EGL_BAD_SURFACE, "eaglSwapBuffers");
+        _eglError(EGL_BAD_SURFACE, "eaglSwapBuffers, context is not current.");
         goto cleanup;
     }
     
@@ -826,7 +827,7 @@ EGLBoolean EAGLIOS_DestroyWindow(struct EAGL_egl_display *EAGL_dpy, struct EAGL_
     
     /** Release Surface memory */
     OWNERSHIP_BRIDGE_TRANSFER(_EAGLSurface *, EAGL_surf->Surface);
-    EAGL_surf->Surface = nil;
+    EAGL_surf->Surface = NULL;
     _eglError(EGL_SUCCESS, "eglDestroySurface");
     return EGL_TRUE;
 }
