@@ -231,7 +231,7 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* n
                 0,
                 kEAGLRenderingAPIOpenGLES1,
                 kEAGLColorFormatRGBA8,
-                GL_DEPTH_COMPONENT16,
+                16,
                 0,
                 EGL_WINDOW_BIT
         };
@@ -241,7 +241,7 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* n
                 0,
                 kEAGLRenderingAPIOpenGLES1,
                 kEAGLColorFormatRGB565,
-                GL_DEPTH_COMPONENT16,
+                16,
                 0,
                 EGL_WINDOW_BIT
         };
@@ -252,7 +252,7 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* n
                 0,
                 kEAGLRenderingAPIOpenGLES2,
                 kEAGLColorFormatRGBA8,
-                GL_DEPTH_COMPONENT16,
+                16,
                 0,
                 EGL_WINDOW_BIT
         };
@@ -261,7 +261,7 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* n
                 0,
                 kEAGLRenderingAPIOpenGLES2,
                 kEAGLColorFormatRGB565,
-                GL_DEPTH_COMPONENT16,
+                16,
                 0,
                 EGL_WINDOW_BIT
         };
@@ -272,7 +272,7 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* n
                 0,
                 kEAGLRenderingAPIOpenGLES3,
                 kEAGLColorFormatRGBA8,
-                GL_DEPTH_COMPONENT16,
+                16,
                 0,
                 EGL_WINDOW_BIT
         };
@@ -281,7 +281,7 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* n
                 0,
                 kEAGLRenderingAPIOpenGLES3,
                 kEAGLColorFormatRGB565,
-                GL_DEPTH_COMPONENT16,
+                16,
                 0,
                 EGL_WINDOW_BIT
         };
