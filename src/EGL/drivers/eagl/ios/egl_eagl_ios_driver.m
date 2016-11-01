@@ -231,7 +231,7 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* n
                 0,
                 kEAGLRenderingAPIOpenGLES1,
                 kEAGLColorFormatRGBA8,
-                16,
+                24,
                 0,
                 EGL_WINDOW_BIT
         };
@@ -241,7 +241,7 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* n
                 0,
                 kEAGLRenderingAPIOpenGLES1,
                 kEAGLColorFormatRGB565,
-                16,
+                24,
                 0,
                 EGL_WINDOW_BIT
         };
@@ -252,7 +252,7 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* n
                 0,
                 kEAGLRenderingAPIOpenGLES2,
                 kEAGLColorFormatRGBA8,
-                16,
+                24,
                 0,
                 EGL_WINDOW_BIT
         };
@@ -261,7 +261,7 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* n
                 0,
                 kEAGLRenderingAPIOpenGLES2,
                 kEAGLColorFormatRGB565,
-                16,
+                24,
                 0,
                 EGL_WINDOW_BIT
         };
@@ -272,7 +272,7 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* n
                 0,
                 kEAGLRenderingAPIOpenGLES3,
                 kEAGLColorFormatRGBA8,
-                16,
+                24,
                 0,
                 EGL_WINDOW_BIT
         };
@@ -281,7 +281,7 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* n
                 0,
                 kEAGLRenderingAPIOpenGLES3,
                 kEAGLColorFormatRGB565,
-                16,
+                24,
                 0,
                 EGL_WINDOW_BIT
         };
@@ -601,8 +601,8 @@ EGLBoolean EAGLIOS_MakeCurrent(_EAGLWindow *dpy,
     }
 
     /** Set surfaces as current */
-    GLenum error = GL_NO_ERROR;
-    int step = 1;
+//    GLenum error = GL_NO_ERROR;
+//    int step = 1;
     origSurface = (__bridge EAGLIOSSurface *)(EAGL_dsurf->Surface);
     if (origSurface.buffers.framebuffer == 0) {
         //printf("EAGLIOS_MakeCurrent, renderbufferStorage.\n");

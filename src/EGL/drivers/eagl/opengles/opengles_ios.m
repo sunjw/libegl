@@ -58,16 +58,16 @@ _OpenGLESAPIVersion opengles_max_version_supported() {
 #ifdef  __IPHONE_7_0
         SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"),
         kEAGLRenderingAPIOpenGLES3,
-        OPENGL_ES_3_0,
+        (EAGLRenderingAPI)OPENGL_ES_3_0,
 #endif // __IPHONE_7_0
 #ifdef  __IPHONE_3_0
         SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"3.0"),
         kEAGLRenderingAPIOpenGLES2,
-        OPENGL_ES_2_0,
+        (EAGLRenderingAPI)OPENGL_ES_2_0,
 #endif // __IPHONE_3_0
         1,
         kEAGLRenderingAPIOpenGLES1,
-        OPENGL_ES_1_1
+        (EAGLRenderingAPI)OPENGL_ES_1_1
     };
     int count = sizeof(renderingAPIs)/sizeof(renderingAPIs[0]);
     bool supported = false;
