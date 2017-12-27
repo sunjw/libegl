@@ -480,7 +480,7 @@ struct EAGL_egl_context* EAGLIOS_CreateContext(struct EAGL_egl_display *EAGL_dpy
     
     EAGLContext *nativeContext = nil;
     if (EAGL_ctx_shared != EGL_NO_CONTEXT) {
-        _EAGLContext *origContext = (__bridge EAGLIOSContext *)(EAGL_ctx->Context);
+        _EAGLContext *origContext = (__bridge EAGLIOSContext *)(EAGL_ctx_shared->Context);
         nativeContext = [[EAGLContext alloc]
                          initWithAPI:EAGL_conf->Config.EAGLRenderingAPI
                          sharegroup:origContext.nativeSharedGroup];
