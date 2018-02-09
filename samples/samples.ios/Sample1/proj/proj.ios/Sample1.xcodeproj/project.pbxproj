@@ -256,11 +256,6 @@
 			attributes = {
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "David Andreoletti";
-				TargetAttributes = {
-					C712FF0A1711189800881C89 = {
-						DevelopmentTeam = HTDFV3WNTP;
-					};
-				};
 			};
 			buildConfigurationList = C712FF051711189800881C89 /* Build configuration list for PBXProject "Sample1" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -414,8 +409,6 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = HTDFV3WNTP;
-				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Sample1/Sample1-Prefix.pch";
 				GCC_WARN_PEDANTIC = YES;
@@ -429,7 +422,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../../prefix\"",
 				);
-				OTHER_CODE_SIGN_FLAGS = "";
+				OTHER_CODE_SIGN_FLAGS = "-gta";
 				PRODUCT_NAME = Sample1;
 				USER_HEADER_SEARCH_PATHS = "${PROJECT_DIR}/../../include ${PROJECT_DIR}/../../../../../prefix/include";
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -442,8 +435,6 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = HTDFV3WNTP;
-				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Sample1/Sample1-Prefix.pch";
 				GCC_WARN_PEDANTIC = YES;
@@ -457,7 +448,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/../../../../../prefix\"",
 				);
-				OTHER_CODE_SIGN_FLAGS = "";
+				OTHER_CODE_SIGN_FLAGS = "-gta";
 				PRODUCT_NAME = Sample1;
 				USER_HEADER_SEARCH_PATHS = "${PROJECT_DIR}/../../include ${PROJECT_DIR}/../../../../../prefix/include";
 				VALID_ARCHS = "arm64 armv7 armv7s";

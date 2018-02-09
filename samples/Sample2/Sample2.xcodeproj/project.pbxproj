@@ -233,7 +233,6 @@
 				TargetAttributes = {
 					528CBF081A00A73E005A2064 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = HTDFV3WNTP;
 					};
 					528CBF251A00A73F005A2064 = {
 						CreatedOnToolsVersion = 6.1;
@@ -416,7 +415,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = HTDFV3WNTP;
 				INFOPLIST_FILE = Sample2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -429,7 +427,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = HTDFV3WNTP;
 				INFOPLIST_FILE = Sample2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
